@@ -1,0 +1,1715 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EAGLE Admin - SEO Plánovač obsahu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-body: #f0f1f5;
+            --bg-sidebar: #1a1d2e;
+            --bg-sidebar-hover: #252840;
+            --bg-sidebar-active: #2d3152;
+            --bg-card: #ffffff;
+            --bg-modal-overlay: rgba(15, 17, 28, 0.55);
+            --text-primary: #1a1d2e;
+            --text-secondary: #6b7085;
+            --text-sidebar: #a0a4b8;
+            --text-sidebar-active: #ffffff;
+            --text-white: #ffffff;
+            --accent: #4f6ef7;
+            --accent-hover: #3b57d4;
+            --accent-light: #eef1fe;
+            --border: #e2e4eb;
+            --border-light: #eff0f4;
+            --status-created-bg: #fef3e2;
+            --status-created-text: #b07a1b;
+            --status-created-dot: #e5a731;
+            --status-draft-bg: #e8f0fe;
+            --status-draft-text: #2c5cc5;
+            --status-draft-dot: #4f6ef7;
+            --status-done-bg: #e6f7ed;
+            --status-done-text: #1a7d42;
+            --status-done-dot: #2ecc71;
+            --type-new-bg: #f0e6ff;
+            --type-new-text: #7b3fe4;
+            --type-update-bg: #e2f4f6;
+            --type-update-text: #1a8a8a;
+            --danger: #e74c3c;
+            --shadow-sm: 0 1px 3px rgba(26,29,46,0.06);
+            --shadow-md: 0 4px 16px rgba(26,29,46,0.08);
+            --shadow-lg: 0 12px 40px rgba(26,29,46,0.12);
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 14px;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg-body);
+            color: var(--text-primary);
+            display: flex;
+            min-height: 100vh;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* ── SIDEBAR ── */
+        .sidebar {
+            width: 250px;
+            min-height: 100vh;
+            background: var(--bg-sidebar);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            z-index: 100;
+            transition: transform 0.3s;
+        }
+
+        .sidebar-logo {
+            padding: 22px 24px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .sidebar-logo h1 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-white);
+            letter-spacing: 1.5px;
+        }
+
+        .sidebar-logo h1 span {
+            color: var(--accent);
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: 12px 0;
+            overflow-y: auto;
+        }
+
+        .nav-section-label {
+            padding: 16px 24px 6px;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 1.8px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.25);
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 24px;
+            color: var(--text-sidebar);
+            text-decoration: none;
+            font-size: 13.5px;
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.15s;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-item:hover {
+            background: var(--bg-sidebar-hover);
+            color: var(--text-sidebar-active);
+        }
+
+        .nav-item.active {
+            background: var(--bg-sidebar-active);
+            color: var(--text-sidebar-active);
+            border-left-color: var(--accent);
+            font-weight: 500;
+        }
+
+        .nav-item svg {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+            opacity: 0.7;
+        }
+
+        .nav-item.active svg { opacity: 1; }
+
+        .nav-sub { padding-left: 20px; }
+
+        .nav-group-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .nav-group-toggle .chevron {
+            width: 14px;
+            height: 14px;
+            transition: transform 0.2s;
+        }
+
+        .nav-group.open .chevron { transform: rotate(180deg); }
+
+        .nav-group .nav-children {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.25s ease;
+        }
+
+        .nav-group.open .nav-children {
+            max-height: 200px;
+        }
+
+        /* ── MAIN ── */
+        .main {
+            flex: 1;
+            margin-left: 250px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* ── TOPBAR ── */
+        .topbar {
+            height: 58px;
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 28px;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .topbar-breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .topbar-breadcrumb a {
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+
+        .topbar-breadcrumb a:hover { color: var(--accent); }
+        .topbar-breadcrumb .sep { opacity: 0.4; }
+        .topbar-breadcrumb .current { color: var(--text-primary); font-weight: 500; }
+
+        .topbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .user-pill {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 5px 12px 5px 5px;
+            border-radius: 100px;
+            background: var(--bg-body);
+            cursor: pointer;
+            font-size: 13px;
+            color: var(--text-primary);
+        }
+
+        .user-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        /* ── CONTENT ── */
+        .content {
+            padding: 28px;
+            flex: 1;
+        }
+
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .page-header h2 {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 9px 18px;
+            border-radius: var(--radius-sm);
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: all 0.15s;
+            text-decoration: none;
+        }
+
+        .btn svg { width: 16px; height: 16px; }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #fff;
+        }
+        .btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(79,110,247,0.3); }
+
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+        .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--text-secondary);
+            padding: 8px 12px;
+        }
+        .btn-ghost:hover { color: var(--accent); background: var(--accent-light); }
+
+        .btn-sm { padding: 6px 12px; font-size: 12px; }
+
+        .btn-danger {
+            background: transparent;
+            color: var(--danger);
+            border: 1px solid var(--danger);
+        }
+        .btn-danger:hover { background: var(--danger); color: #fff; }
+
+        /* ── FILTERS ── */
+        .filters-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            padding: 18px 20px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .filters-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: flex-end;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .filter-group label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .filter-group input,
+        .filter-group select {
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-family: inherit;
+            font-size: 13px;
+            color: var(--text-primary);
+            background: #fff;
+            min-width: 150px;
+            transition: border-color 0.15s;
+        }
+
+        .filter-group input:focus,
+        .filter-group select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(79,110,247,0.1);
+        }
+
+        .filter-group input[type="date"] { min-width: 140px; }
+
+        .filters-actions {
+            display: flex;
+            gap: 8px;
+            margin-left: auto;
+            align-self: flex-end;
+        }
+
+        /* ── STATS BAR ── */
+        .stats-bar {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .stat-chip {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .stat-chip:hover, .stat-chip.active {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(79,110,247,0.08);
+        }
+
+        .stat-chip .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .stat-chip .count {
+            font-size: 18px;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .stat-chip .label {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* ── TABLE ── */
+        .table-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead th {
+            padding: 12px 16px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            background: var(--bg-body);
+            border-bottom: 1px solid var(--border);
+            text-align: left;
+            white-space: nowrap;
+            position: sticky;
+            top: 0;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid var(--border-light);
+            cursor: pointer;
+            transition: background 0.1s;
+        }
+
+        tbody tr:last-child { border-bottom: none; }
+
+        tbody tr:hover { background: #f8f9fc; }
+
+        tbody td {
+            padding: 14px 16px;
+            font-size: 13.5px;
+            vertical-align: middle;
+        }
+
+        .td-id {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .td-title {
+            font-weight: 500;
+            color: var(--text-primary);
+            max-width: 320px;
+        }
+
+        .td-title .url-hint {
+            display: block;
+            font-size: 11.5px;
+            font-weight: 400;
+            color: var(--text-secondary);
+            margin-top: 2px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 10px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .badge .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+
+        .badge-created { background: var(--status-created-bg); color: var(--status-created-text); }
+        .badge-created .dot { background: var(--status-created-dot); }
+
+        .badge-draft { background: var(--status-draft-bg); color: var(--status-draft-text); }
+        .badge-draft .dot { background: var(--status-draft-dot); }
+
+        .badge-done { background: var(--status-done-bg); color: var(--status-done-text); }
+        .badge-done .dot { background: var(--status-done-dot); }
+
+        .badge-type-new { background: var(--type-new-bg); color: var(--type-new-text); }
+        .badge-type-update { background: var(--type-update-bg); color: var(--type-update-text); }
+
+        .td-date {
+            font-size: 13px;
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+
+        .td-actions {
+            display: flex;
+            gap: 4px;
+        }
+
+        .icon-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-sm);
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s;
+        }
+
+        .icon-btn:hover { background: var(--accent-light); color: var(--accent); }
+        .icon-btn svg { width: 16px; height: 16px; }
+
+        /* ── PAGINATION ── */
+        .table-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            border-top: 1px solid var(--border);
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .pagination {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .page-btn {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-sm);
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-family: inherit;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .page-btn:hover { background: var(--accent-light); color: var(--accent); }
+        .page-btn.active { background: var(--accent); color: #fff; font-weight: 600; }
+        .page-btn:disabled { opacity: 0.3; cursor: default; }
+
+        .page-nav {
+            padding: 6px 14px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            background: #fff;
+            font-family: inherit;
+            font-size: 12.5px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .page-nav:hover { border-color: var(--accent); color: var(--accent); }
+
+        /* ── MODAL OVERLAY ── */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-modal-overlay);
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-overlay.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        /* ── DETAIL PANEL (slide-in) ── */
+        .detail-panel {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 680px;
+            max-width: 100%;
+            background: var(--bg-card);
+            z-index: 300;
+            box-shadow: -8px 0 40px rgba(0,0,0,0.12);
+            transform: translateX(100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .detail-panel.open { transform: translateX(0); }
+
+        .detail-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.3);
+            z-index: 250;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .detail-backdrop.open { opacity: 1; pointer-events: all; }
+
+        .detail-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .detail-header h3 {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .detail-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px;
+        }
+
+        .detail-section {
+            margin-bottom: 24px;
+        }
+
+        .detail-section-title {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .detail-field label {
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            margin-bottom: 4px;
+        }
+
+        .detail-field .value {
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+
+        .detail-field.full { grid-column: 1 / -1; }
+
+        .keywords-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .keyword-tag {
+            padding: 3px 10px;
+            background: var(--bg-body);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: 12px;
+            color: var(--text-primary);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .draft-preview {
+            background: var(--bg-body);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            font-size: 14px;
+            line-height: 1.7;
+            color: var(--text-primary);
+            max-height: 350px;
+            overflow-y: auto;
+        }
+
+        .draft-preview h4 {
+            font-size: 18px;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .draft-preview p { margin-bottom: 10px; }
+
+        .draft-preview .ai-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 3px 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-bottom: 14px;
+            letter-spacing: 0.3px;
+        }
+
+        .draft-empty {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-secondary);
+        }
+
+        .draft-empty svg {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 12px;
+            opacity: 0.3;
+        }
+
+        .detail-footer {
+            padding: 16px 24px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+        }
+
+        /* ── CREATE MODAL ── */
+        .modal-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            width: 560px;
+            max-width: calc(100% - 32px);
+            max-height: calc(100vh - 64px);
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            flex-direction: column;
+            transform: translateY(20px) scale(0.97);
+            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .modal-overlay.open .modal-card {
+            transform: translateY(0) scale(1);
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .modal-header h3 {
+            font-size: 17px;
+            font-weight: 600;
+        }
+
+        .modal-body {
+            padding: 24px;
+            overflow-y: auto;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-family: inherit;
+            font-size: 14px;
+            color: var(--text-primary);
+            background: #fff;
+            transition: border-color 0.15s;
+        }
+
+        .form-group textarea { min-height: 80px; resize: vertical; }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(79,110,247,0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .form-hint {
+            font-size: 11.5px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        .modal-footer {
+            padding: 16px 24px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+        }
+
+        .type-selector {
+            display: flex;
+            gap: 10px;
+        }
+
+        .type-option {
+            flex: 1;
+            padding: 14px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.15s;
+            text-align: center;
+        }
+
+        .type-option:hover { border-color: var(--accent); }
+
+        .type-option.selected {
+            border-color: var(--accent);
+            background: var(--accent-light);
+        }
+
+        .type-option .type-icon {
+            width: 36px;
+            height: 36px;
+            margin: 0 auto 8px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .type-option .type-icon svg { width: 18px; height: 18px; }
+
+        .type-option.type-new .type-icon { background: var(--type-new-bg); color: var(--type-new-text); }
+        .type-option.type-update .type-icon { background: var(--type-update-bg); color: var(--type-update-text); }
+
+        .type-option .type-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .type-option .type-desc {
+            font-size: 11.5px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+
+        /* ── STATUS STEPS ── */
+        .status-steps {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            margin: 16px 0;
+        }
+
+        .status-step {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 500;
+            background: var(--bg-body);
+            color: var(--text-secondary);
+            transition: all 0.15s;
+        }
+
+        .status-step .step-num {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            background: var(--border);
+            color: var(--text-secondary);
+        }
+
+        .status-step.completed { background: var(--status-done-bg); color: var(--status-done-text); }
+        .status-step.completed .step-num { background: var(--status-done-dot); color: #fff; }
+
+        .status-step.current { background: var(--status-draft-bg); color: var(--status-draft-text); }
+        .status-step.current .step-num { background: var(--status-draft-dot); color: #fff; }
+
+        .status-connector {
+            width: 32px;
+            height: 2px;
+            background: var(--border);
+        }
+
+        .status-connector.done { background: var(--status-done-dot); }
+
+        /* ── TOAST ── */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 500;
+            padding: 12px 20px;
+            border-radius: var(--radius-md);
+            background: var(--bg-sidebar);
+            color: #fff;
+            font-size: 13px;
+            font-weight: 500;
+            box-shadow: var(--shadow-lg);
+            transform: translateY(80px);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .toast.show { transform: translateY(0); opacity: 1; }
+
+        /* ── EMPTY STATE ── */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .empty-state svg { width: 56px; height: 56px; opacity: 0.25; margin-bottom: 14px; }
+        .empty-state p { color: var(--text-secondary); font-size: 14px; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+            .sidebar { transform: translateX(-100%); }
+            .main { margin-left: 0; }
+            .stats-bar { flex-wrap: wrap; }
+            .detail-panel { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <h1>EAGLE <span>Admin</span></h1>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="nav-section-label">Hlavné</div>
+            <a class="nav-item" href="#">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1"/></svg>
+                Homepage
+            </a>
+            <a class="nav-item" href="#">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                Realtime štatistiky
+            </a>
+            <a class="nav-item" href="#">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                Zoznam článkov
+            </a>
+
+            <div class="nav-section-label">Médiá</div>
+            <a class="nav-item" href="#">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                DAM
+            </a>
+            <a class="nav-item" href="#">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                Video
+            </a>
+
+            <div class="nav-section-label">SEO</div>
+            <a class="nav-item active" href="#">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                SEO Plánovač
+            </a>
+            <a class="nav-item" href="#">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                SEO Analytika
+            </a>
+
+            <div class="nav-section-label">Audio</div>
+            <a class="nav-item" href="#">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2z"/></svg>
+                Prepis nahrávok
+            </a>
+            <a class="nav-item" href="#">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/></svg>
+                Podcastové štúdio
+            </a>
+        </nav>
+    </aside>
+
+    <!-- MAIN -->
+    <div class="main">
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <div class="topbar-breadcrumb">
+                <a href="#">EAGLE Admin</a>
+                <span class="sep">›</span>
+                <span class="current">SEO Plánovač obsahu</span>
+            </div>
+            <div class="topbar-actions">
+                <div class="user-pill">
+                    <div class="user-avatar">LS</div>
+                    Lukas.Saghy
+                </div>
+            </div>
+        </header>
+
+        <!-- CONTENT -->
+        <div class="content">
+            <div class="page-header">
+                <h2>SEO Plánovač obsahu</h2>
+                <button class="btn btn-primary" onclick="openCreateModal()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4v16m8-8H4"/></svg>
+                    Vytvoriť nový
+                </button>
+            </div>
+
+            <!-- STATS -->
+            <div class="stats-bar">
+                <div class="stat-chip active" onclick="filterByStatus('all')">
+                    <div class="count" id="stat-all">12</div>
+                    <div class="label">Celkom</div>
+                </div>
+                <div class="stat-chip" onclick="filterByStatus('created')">
+                    <div class="dot" style="background:var(--status-created-dot)"></div>
+                    <div class="count" id="stat-created">4</div>
+                    <div class="label">Založené</div>
+                </div>
+                <div class="stat-chip" onclick="filterByStatus('draft')">
+                    <div class="dot" style="background:var(--status-draft-dot)"></div>
+                    <div class="count" id="stat-draft">5</div>
+                    <div class="label">Draft na review</div>
+                </div>
+                <div class="stat-chip" onclick="filterByStatus('done')">
+                    <div class="dot" style="background:var(--status-done-dot)"></div>
+                    <div class="count" id="stat-done">3</div>
+                    <div class="label">Prebraté</div>
+                </div>
+            </div>
+
+            <!-- FILTERS -->
+            <div class="filters-card">
+                <div class="filters-row">
+                    <div class="filter-group">
+                        <label>Hľadať</label>
+                        <input type="text" placeholder="Názov, kľúčové slovo…" id="filterSearch" oninput="applyFilters()">
+                    </div>
+                    <div class="filter-group">
+                        <label>Druh</label>
+                        <select id="filterType" onchange="applyFilters()">
+                            <option value="">Všetky</option>
+                            <option value="new">Nový článok</option>
+                            <option value="update">Aktualizácia</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Stav</label>
+                        <select id="filterStatus" onchange="applyFilters()">
+                            <option value="">Všetky</option>
+                            <option value="created">Založené</option>
+                            <option value="draft">Draft na review</option>
+                            <option value="done">Prebraté</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Stránka</label>
+                        <select id="filterSite" onchange="applyFilters()">
+                            <option value="">Všetky</option>
+                            <option value="aktuality.sk">aktuality.sk</option>
+                            <option value="sportnet.sk">sportnet.sk</option>
+                            <option value="mama.sk">mama.sk</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Vytvorené od</label>
+                        <input type="date" id="filterFrom">
+                    </div>
+                    <div class="filter-group">
+                        <label>Vytvorené do</label>
+                        <input type="date" id="filterTo">
+                    </div>
+                    <div class="filters-actions">
+                        <button class="btn btn-ghost btn-sm" onclick="resetFilters()">Zrušiť filter</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TABLE -->
+            <div class="table-card">
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width:60px">ID</th>
+                                <th>Názov</th>
+                                <th>Druh</th>
+                                <th>Stránka</th>
+                                <th>Stav</th>
+                                <th>Vytvorené</th>
+                                <th style="width:80px"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            <!-- JS rendered -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-footer">
+                    <span id="tableInfo">Zobrazených: 10 z 12</span>
+                    <div class="pagination">
+                        <button class="page-nav" disabled>Predchádzajúca</button>
+                        <button class="page-btn active">1</button>
+                        <button class="page-btn">2</button>
+                        <button class="page-nav">Nasledujúca</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CREATE MODAL -->
+    <div class="modal-overlay" id="createModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Nová SEO položka</h3>
+                <button class="icon-btn" onclick="closeCreateModal()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Druh obsahu</label>
+                    <div class="type-selector">
+                        <div class="type-option type-new selected" onclick="selectType(this, 'new')">
+                            <div class="type-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4v16m8-8H4"/></svg>
+                            </div>
+                            <div class="type-label">Nový SEO článok</div>
+                            <div class="type-desc">Vytvorenie nového obsahu</div>
+                        </div>
+                        <div class="type-option type-update" onclick="selectType(this, 'update')">
+                            <div class="type-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                            </div>
+                            <div class="type-label">Aktualizácia článku</div>
+                            <div class="type-desc">SEO refresh existujúceho obsahu</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Názov / Téma</label>
+                    <input type="text" id="formTitle" placeholder="napr. Najlepšie smartfóny 2026 – komplexný prehľad">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Stránka</label>
+                        <select id="formSite">
+                            <option value="aktuality.sk">aktuality.sk</option>
+                            <option value="sportnet.sk">sportnet.sk</option>
+                            <option value="mama.sk">mama.sk</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Priorita</label>
+                        <select id="formPriority">
+                            <option value="high">Vysoká</option>
+                            <option value="medium" selected>Stredná</option>
+                            <option value="low">Nízka</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group" id="existingUrlGroup" style="display:none">
+                    <label>URL existujúceho článku</label>
+                    <input type="url" id="formExistingUrl" placeholder="https://aktuality.sk/clanok/...">
+                    <div class="form-hint">Zadajte URL článku, ktorý chcete aktualizovať pre SEO.</div>
+                </div>
+                <div class="form-group">
+                    <label>Cieľové kľúčové slová</label>
+                    <input type="text" id="formKeywords" placeholder="smartfóny 2026, najlepší mobil, porovnanie telefónov">
+                    <div class="form-hint">Oddeľte čiarkou. AI ich použije pri generovaní draftu.</div>
+                </div>
+                <div class="form-group">
+                    <label>Poznámky / Inštrukcie pre AI</label>
+                    <textarea id="formNotes" placeholder="Voliteľné – napr. zameraj sa na fotoschopnosti, cieľová skupina 25–40 rokov…"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeCreateModal()">Zrušiť</button>
+                <button class="btn btn-primary" onclick="createItem()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                    Vytvoriť položku
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- DETAIL PANEL -->
+    <div class="detail-backdrop" id="detailBackdrop" onclick="closeDetail()"></div>
+    <div class="detail-panel" id="detailPanel">
+        <div class="detail-header">
+            <h3 id="detailTitle">Detail položky</h3>
+            <button class="icon-btn" onclick="closeDetail()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+        </div>
+        <div class="detail-body" id="detailBody">
+            <!-- JS rendered -->
+        </div>
+        <div class="detail-footer" id="detailFooter">
+            <!-- JS rendered -->
+        </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ── DATA ──
+        const items = [
+            {
+                id: 1, type: 'new', title: 'Najlepšie smartfóny do 300 € v roku 2026', site: 'aktuality.sk',
+                status: 'draft', created: '2026-05-18', priority: 'high',
+                keywords: ['smartfóny 2026', 'lacné mobily', 'telefón do 300 eur'],
+                notes: 'Zameraj sa na pomer cena/výkon, cieľovka 20-35r.',
+                existingUrl: '',
+                draft: {
+                    title: 'Najlepšie smartfóny do 300 € v roku 2026 – veľký prehľad',
+                    content: '<p>Hľadáte nový smartfón, ale nechcete minúť celú výplatu? V roku 2026 máte na výber toľko kvalitných modelov do 300 €, že si nemusíte robiť kompromisy. Prešli sme desiatky telefónov a vybrali tie najlepšie.</p><p><strong>Samsung Galaxy A36 5G</strong> prichádza s vynikajúcim 6,6-palcovým Super AMOLED displejom, 50 MP kamerou a batériou s kapacitou 5 000 mAh. Za cenu okolo 280 € je to jednoznačne jeden z lídrov kategórie.</p><p><strong>Xiaomi Redmi Note 14 Pro</strong> ponúka fantastický pomer cena-výkon s procesorom Snapdragon 7s Gen 3, 108 MP fotoaparátom a 120Hz displejom. Cena sa pohybuje okolo 260 €.</p><p>Pokračovanie článku obsahuje ďalšie modely, porovnávaciu tabuľku a záverečné odporúčania…</p>'
+                }
+            },
+            {
+                id: 2, type: 'update', title: 'Ako schudnúť zdravo – kompletný sprievodca', site: 'mama.sk',
+                status: 'draft', created: '2026-05-17', priority: 'high',
+                keywords: ['ako schudnúť', 'zdravé chudnutie', 'diéta 2026'],
+                notes: 'Aktualizovať o nové štúdie z 2026, pridať sekciu o GLP-1 liekoch.',
+                existingUrl: 'https://mama.sk/zdravie/ako-schudnut-zdravo',
+                draft: {
+                    title: 'Ako schudnúť zdravo v roku 2026 – aktualizovaný sprievodca',
+                    content: '<p>Tento článok bol pôvodne publikovaný v roku 2023. Aktualizovali sme ho o najnovšie poznatky z výskumu v oblasti výživy a metabolizmu za rok 2025–2026.</p><p><strong>Čo je nové:</strong> Nové odporúčania WHO z marca 2026 zdôrazňujú dôležitosť individualizovaného prístupu. Sekcia o GLP-1 liekoch bola kompletne prepracovaná na základe aktuálnych klinických štúdií.</p><p><strong>Kľúčové zmeny:</strong> Doplnená sekcia o intermittent fasting protokoloch, aktualizovaný kalorický kalkulátor, nové recepty pre vyvážený jedálniček.</p>'
+                }
+            },
+            {
+                id: 3, type: 'new', title: 'Dovolenka v Chorvátsku 2026 – najlepšie destinácie a ceny', site: 'aktuality.sk',
+                status: 'created', created: '2026-05-16', priority: 'high',
+                keywords: ['chorvátsko 2026', 'dovolenka chorvátsko', 'chorvátsko ceny'],
+                notes: 'Sezónny obsah – urgentné. Zahrnúť cenové porovnania, tipy na ubytovanie.',
+                existingUrl: '',
+                draft: null
+            },
+            {
+                id: 4, type: 'update', title: 'Najlepšie bežecké topánky – recenzie a porovnanie', site: 'sportnet.sk',
+                status: 'done', created: '2026-05-15', priority: 'medium',
+                keywords: ['bežecké topánky', 'najlepšie tenisky na beh', 'running shoes 2026'],
+                notes: 'Aktualizovať o nové modely Nike a Adidas z jari 2026.',
+                existingUrl: 'https://sportnet.sk/behanie/najlepsie-bezecke-topanky',
+                draft: {
+                    title: 'Najlepšie bežecké topánky 2026 – veľké porovnanie [Aktualizované]',
+                    content: '<p>Aktualizovaný článok zahŕňa nové modely z jarných kolekcií 2026 vrátane Nike Pegasus 43 a Adidas Ultraboost 26. Sekcia s porovnávacou tabuľkou bola kompletne prepracovaná.</p>'
+                }
+            },
+            {
+                id: 5, type: 'new', title: 'Umelá inteligencia v každodennom živote – praktický sprievodca', site: 'aktuality.sk',
+                status: 'draft', created: '2026-05-14', priority: 'medium',
+                keywords: ['AI v praxi', 'umelá inteligencia', 'chatboty', 'AI nástroje'],
+                notes: 'Prakticky zameraný článok, nie technický. Cieľovka bežní ľudia.',
+                existingUrl: '',
+                draft: {
+                    title: 'Umelá inteligencia v bežnom živote – 15 spôsobov, ako vám AI pomôže denne',
+                    content: '<p>Umelá inteligencia už nie je sci-fi – je súčasťou nášho každodenného života. Od plánovania nákupov cez správu financií až po učenie jazykov, AI nástroje vám môžu výrazne uľahčiť bežné činnosti.</p><p>V tomto článku vám ukážeme 15 konkrétnych spôsobov, ako využiť AI v praxi, bez technických znalostí.</p>'
+                }
+            },
+            {
+                id: 6, type: 'update', title: 'Hypotéka v roku 2026 – aktuálne sadzby a podmienky', site: 'aktuality.sk',
+                status: 'created', created: '2026-05-13', priority: 'high',
+                keywords: ['hypotéka 2026', 'úrokové sadzby', 'hypotekárny úver'],
+                notes: 'Refresh kvôli zmene sadzieb ECB v máji 2026.',
+                existingUrl: 'https://aktuality.sk/financie/hypoteka-sadzby-podmienky',
+                draft: null
+            },
+            {
+                id: 7, type: 'new', title: 'Elektrické autá do 30 000 € – porovnanie 2026', site: 'aktuality.sk',
+                status: 'draft', created: '2026-05-12', priority: 'medium',
+                keywords: ['elektromobily 2026', 'lacné EV', 'elektrické auto'],
+                notes: 'Zahrnúť BYD, Dacia, Citroën modely.',
+                existingUrl: '',
+                draft: {
+                    title: 'Elektrické autá do 30 000 € v roku 2026 – kompletný prehľad modelov',
+                    content: '<p>Trh s elektromobilmi sa dramaticky zmenil. V roku 2026 si konečne môžete kúpiť kvalitné EV za cenu, ktorá neprekvapí. Pozreli sme sa na všetky dostupné modely do 30 000 € a prinášame detailné porovnanie.</p>'
+                }
+            },
+            {
+                id: 8, type: 'new', title: 'Záhradkárčenie pre začiatočníkov – čo sadiť v júni', site: 'mama.sk',
+                status: 'created', created: '2026-05-11', priority: 'low',
+                keywords: ['záhradkárčenie', 'čo sadiť v júni', 'záhrada pre začiatočníkov'],
+                notes: 'Sezónny obsah. Jednoduché rady, fotky by boli fajn.',
+                existingUrl: '',
+                draft: null
+            },
+            {
+                id: 9, type: 'update', title: 'Najlepšie VPN služby – bezpečnosť a súkromie online', site: 'aktuality.sk',
+                status: 'done', created: '2026-05-10', priority: 'medium',
+                keywords: ['VPN', 'najlepšie VPN', 'online bezpečnosť'],
+                notes: '',
+                existingUrl: 'https://aktuality.sk/tech/najlepsie-vpn-sluzby',
+                draft: {
+                    title: 'Najlepšie VPN služby v roku 2026 – kompletný prehľad a porovnanie',
+                    content: '<p>Aktualizované poradie VPN služieb na základe nových testov rýchlosti, bezpečnostných auditov a cenových zmien z roku 2026.</p>'
+                }
+            },
+            {
+                id: 10, type: 'new', title: 'Letné festivaly na Slovensku 2026 – kompletný prehľad', site: 'aktuality.sk',
+                status: 'done', created: '2026-05-08', priority: 'medium',
+                keywords: ['festivaly 2026', 'letné festivaly slovensko', 'pohoda 2026'],
+                notes: 'Urgentné – sezónny obsah.',
+                existingUrl: '',
+                draft: {
+                    title: 'Letné festivaly na Slovensku 2026 – dátumy, ceny vstupeniek a lineup',
+                    content: '<p>Kompletný prehľad všetkých letných hudobných festivalov na Slovensku v roku 2026 vrátane Pohody, Grape festivalu, Uprising a ďalších.</p>'
+                }
+            },
+            {
+                id: 11, type: 'update', title: 'Recept na sviatočnú kapustnicu', site: 'mama.sk',
+                status: 'created', created: '2026-05-06', priority: 'low',
+                keywords: ['kapustnica recept', 'vianočná kapustnica'],
+                notes: 'Dlhodobý evergreen – refresh s novými fotkami a tips.',
+                existingUrl: 'https://mama.sk/recepty/sviatkova-kapustnica',
+                draft: null
+            },
+            {
+                id: 12, type: 'new', title: 'Streching a mobilita – cviky pre sedavé zamestnanie', site: 'sportnet.sk',
+                status: 'draft', created: '2026-05-05', priority: 'medium',
+                keywords: ['streching', 'cviky v kancelárii', 'mobilita', 'bolesť chrbta'],
+                notes: 'Zahrnúť obrázky cvikov, video embed ak možné.',
+                existingUrl: '',
+                draft: {
+                    title: '10 najlepších strechingovych cvikov pre tých, čo sedia celý deň',
+                    content: '<p>Sedíte v práci 8 hodín denne? Tieto cviky na mobilitu a streching vám pomôžu predísť bolestiam chrbta, krku a ramien. Stačí 10 minút denne.</p>'
+                }
+            }
+        ];
+
+        let currentFilter = { search: '', type: '', status: '', site: '' };
+        let selectedCreateType = 'new';
+
+        // ── RENDER TABLE ──
+        function renderTable() {
+            const tbody = document.getElementById('tableBody');
+            const filtered = getFilteredItems();
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7"><div class="empty-state">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    <p>Žiadne položky nezodpovedajú filtru.</p>
+                </div></td></tr>`;
+                document.getElementById('tableInfo').textContent = 'Zobrazených: 0';
+                return;
+            }
+
+            tbody.innerHTML = filtered.map(item => `
+                <tr onclick="openDetail(${item.id})">
+                    <td class="td-id">#${item.id}</td>
+                    <td class="td-title">
+                        ${item.title}
+                        ${item.existingUrl ? `<span class="url-hint">${item.existingUrl.replace('https://', '').substring(0, 45)}…</span>` : ''}
+                    </td>
+                    <td><span class="badge badge-type-${item.type}">${item.type === 'new' ? '✦ Nový článok' : '↻ Aktualizácia'}</span></td>
+                    <td style="font-size:13px;color:var(--text-secondary)">${item.site}</td>
+                    <td>${statusBadge(item.status)}</td>
+                    <td class="td-date">${formatDate(item.created)}</td>
+                    <td>
+                        <div class="td-actions">
+                            <button class="icon-btn" title="Otvoriť detail" onclick="event.stopPropagation(); openDetail(${item.id})">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+
+            document.getElementById('tableInfo').textContent = `Zobrazených: ${filtered.length} z ${items.length}`;
+            updateStats();
+        }
+
+        function statusBadge(status) {
+            const map = {
+                created: { cls: 'badge-created', label: 'Založené' },
+                draft:   { cls: 'badge-draft',   label: 'Draft na review' },
+                done:    { cls: 'badge-done',    label: 'Prebraté' },
+            };
+            const s = map[status];
+            return `<span class="badge ${s.cls}"><span class="dot"></span>${s.label}</span>`;
+        }
+
+        function formatDate(d) {
+            const [y, m, day] = d.split('-');
+            return `${day}.${m}.${y}`;
+        }
+
+        function updateStats() {
+            document.getElementById('stat-all').textContent = items.length;
+            document.getElementById('stat-created').textContent = items.filter(i => i.status === 'created').length;
+            document.getElementById('stat-draft').textContent = items.filter(i => i.status === 'draft').length;
+            document.getElementById('stat-done').textContent = items.filter(i => i.status === 'done').length;
+        }
+
+        // ── FILTERS ──
+        function getFilteredItems() {
+            return items.filter(item => {
+                if (currentFilter.search) {
+                    const q = currentFilter.search.toLowerCase();
+                    const match = item.title.toLowerCase().includes(q) || item.keywords.some(k => k.toLowerCase().includes(q));
+                    if (!match) return false;
+                }
+                if (currentFilter.type && item.type !== currentFilter.type) return false;
+                if (currentFilter.status && item.status !== currentFilter.status) return false;
+                if (currentFilter.site && item.site !== currentFilter.site) return false;
+                return true;
+            });
+        }
+
+        function applyFilters() {
+            currentFilter.search = document.getElementById('filterSearch').value;
+            currentFilter.type = document.getElementById('filterType').value;
+            currentFilter.status = document.getElementById('filterStatus').value;
+            currentFilter.site = document.getElementById('filterSite').value;
+            renderTable();
+        }
+
+        function filterByStatus(status) {
+            document.querySelectorAll('.stat-chip').forEach(c => c.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            if (status === 'all') {
+                document.getElementById('filterStatus').value = '';
+            } else {
+                document.getElementById('filterStatus').value = status;
+            }
+            applyFilters();
+        }
+
+        function resetFilters() {
+            document.getElementById('filterSearch').value = '';
+            document.getElementById('filterType').value = '';
+            document.getElementById('filterStatus').value = '';
+            document.getElementById('filterSite').value = '';
+            document.getElementById('filterFrom').value = '';
+            document.getElementById('filterTo').value = '';
+            currentFilter = { search: '', type: '', status: '', site: '' };
+            document.querySelectorAll('.stat-chip').forEach(c => c.classList.remove('active'));
+            document.querySelector('.stat-chip').classList.add('active');
+            renderTable();
+        }
+
+        // ── CREATE MODAL ──
+        function openCreateModal() {
+            document.getElementById('createModal').classList.add('open');
+        }
+
+        function closeCreateModal() {
+            document.getElementById('createModal').classList.remove('open');
+        }
+
+        function selectType(el, type) {
+            selectedCreateType = type;
+            document.querySelectorAll('.type-option').forEach(o => o.classList.remove('selected'));
+            el.classList.add('selected');
+            document.getElementById('existingUrlGroup').style.display = type === 'update' ? 'block' : 'none';
+        }
+
+        function createItem() {
+            const title = document.getElementById('formTitle').value.trim();
+            if (!title) { showToast('Zadajte názov / tému.'); return; }
+
+            const newItem = {
+                id: items.length + 1,
+                type: selectedCreateType,
+                title: title,
+                site: document.getElementById('formSite').value,
+                status: 'created',
+                created: new Date().toISOString().slice(0, 10),
+                priority: document.getElementById('formPriority').value,
+                keywords: document.getElementById('formKeywords').value.split(',').map(k => k.trim()).filter(Boolean),
+                notes: document.getElementById('formNotes').value,
+                existingUrl: selectedCreateType === 'update' ? document.getElementById('formExistingUrl').value : '',
+                draft: null
+            };
+
+            items.unshift(newItem);
+            closeCreateModal();
+            renderTable();
+            showToast('Položka #' + newItem.id + ' bola vytvorená.');
+
+            // Reset form
+            document.getElementById('formTitle').value = '';
+            document.getElementById('formKeywords').value = '';
+            document.getElementById('formNotes').value = '';
+            document.getElementById('formExistingUrl').value = '';
+        }
+
+        // ── DETAIL PANEL ──
+        function openDetail(id) {
+            const item = items.find(i => i.id === id);
+            if (!item) return;
+
+            document.getElementById('detailTitle').textContent = '#' + item.id + ' — ' + item.title;
+
+            const statusSteps = buildStatusSteps(item.status);
+
+            let draftHTML = '';
+            if (item.draft) {
+                draftHTML = `
+                    <div class="detail-section">
+                        <div class="detail-section-title">AI-generovaný draft</div>
+                        <div class="draft-preview">
+                            <span class="ai-label">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                                Generované AI
+                            </span>
+                            <h4>${item.draft.title}</h4>
+                            ${item.draft.content}
+                        </div>
+                    </div>`;
+            } else {
+                draftHTML = `
+                    <div class="detail-section">
+                        <div class="detail-section-title">AI-generovaný draft</div>
+                        <div class="draft-empty">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                            <p>Draft ešte nebol vygenerovaný.</p>
+                            <button class="btn btn-primary btn-sm" style="margin-top:12px" onclick="generateDraft(${item.id})">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                                Spustiť generovanie
+                            </button>
+                        </div>
+                    </div>`;
+            }
+
+            document.getElementById('detailBody').innerHTML = `
+                ${statusSteps}
+                <div class="detail-section">
+                    <div class="detail-section-title">Základné informácie</div>
+                    <div class="detail-grid">
+                        <div class="detail-field">
+                            <label>Druh</label>
+                            <div class="value"><span class="badge badge-type-${item.type}">${item.type === 'new' ? '✦ Nový článok' : '↻ Aktualizácia'}</span></div>
+                        </div>
+                        <div class="detail-field">
+                            <label>Stránka</label>
+                            <div class="value">${item.site}</div>
+                        </div>
+                        <div class="detail-field">
+                            <label>Priorita</label>
+                            <div class="value">${{high:'🔴 Vysoká', medium:'🟡 Stredná', low:'🟢 Nízka'}[item.priority]}</div>
+                        </div>
+                        <div class="detail-field">
+                            <label>Vytvorené</label>
+                            <div class="value">${formatDate(item.created)}</div>
+                        </div>
+                        ${item.existingUrl ? `<div class="detail-field full"><label>URL existujúceho článku</label><div class="value" style="font-family:'JetBrains Mono',monospace;font-size:13px;word-break:break-all"><a href="${item.existingUrl}" target="_blank" style="color:var(--accent)">${item.existingUrl}</a></div></div>` : ''}
+                        <div class="detail-field full">
+                            <label>Kľúčové slová</label>
+                            <div class="keywords-list">
+                                ${item.keywords.map(k => `<span class="keyword-tag">${k}</span>`).join('')}
+                            </div>
+                        </div>
+                        ${item.notes ? `<div class="detail-field full"><label>Poznámky / Inštrukcie</label><div class="value">${item.notes}</div></div>` : ''}
+                    </div>
+                </div>
+                ${draftHTML}
+            `;
+
+            // Footer actions
+            let footerHTML = '';
+            if (item.status === 'created') {
+                footerHTML = `
+                    <button class="btn btn-secondary" onclick="closeDetail()">Zavrieť</button>
+                    <button class="btn btn-primary" onclick="generateDraft(${item.id})">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                        Generovať AI draft
+                    </button>`;
+            } else if (item.status === 'draft') {
+                footerHTML = `
+                    <button class="btn btn-secondary" onclick="closeDetail()">Zavrieť</button>
+                    <button class="btn btn-primary" onclick="markDone(${item.id})">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M5 13l4 4L19 7"/></svg>
+                        Označiť ako prebraté
+                    </button>`;
+            } else {
+                footerHTML = `<button class="btn btn-secondary" onclick="closeDetail()">Zavrieť</button>`;
+            }
+            document.getElementById('detailFooter').innerHTML = footerHTML;
+
+            document.getElementById('detailBackdrop').classList.add('open');
+            document.getElementById('detailPanel').classList.add('open');
+        }
+
+        function closeDetail() {
+            document.getElementById('detailBackdrop').classList.remove('open');
+            document.getElementById('detailPanel').classList.remove('open');
+        }
+
+        function buildStatusSteps(status) {
+            const steps = ['created', 'draft', 'done'];
+            const labels = { created: 'Založené', draft: 'Draft na review', done: 'Prebraté' };
+            const idx = steps.indexOf(status);
+
+            let html = '<div class="status-steps">';
+            steps.forEach((s, i) => {
+                let cls = '';
+                if (i < idx) cls = 'completed';
+                else if (i === idx) cls = 'current';
+                html += `<div class="status-step ${cls}"><span class="step-num">${i < idx ? '✓' : (i + 1)}</span>${labels[s]}</div>`;
+                if (i < steps.length - 1) {
+                    html += `<div class="status-connector ${i < idx ? 'done' : ''}"></div>`;
+                }
+            });
+            html += '</div>';
+            return html;
+        }
+
+        // ── ACTIONS ──
+        function generateDraft(id) {
+            const item = items.find(i => i.id === id);
+            if (!item) return;
+
+            item.status = 'draft';
+            item.draft = {
+                title: item.title + (item.type === 'update' ? ' [Aktualizované 2026]' : ' – kompletný sprievodca'),
+                content: '<p>Toto je AI-generovaný návrh obsahu na základe zadaných kľúčových slov: <strong>' + item.keywords.join(', ') + '</strong>.</p><p>Obsah bol optimalizovaný pre vyhľadávače s dôrazom na relevanciu, čitateľnosť a pokrytie témy. Obsahuje navrhované nadpisy H2/H3, meta popis a štruktúru článku.</p><p><em>Plná verzia draftu by tu obsahovala kompletný text článku pripravený na redakčné schválenie…</em></p>'
+            };
+
+            renderTable();
+            openDetail(id);
+            showToast('Draft pre #' + id + ' bol vygenerovaný.');
+        }
+
+        function markDone(id) {
+            const item = items.find(i => i.id === id);
+            if (!item) return;
+            item.status = 'done';
+            renderTable();
+            openDetail(id);
+            showToast('Položka #' + id + ' bola označená ako prebraná.');
+        }
+
+        // ── TOAST ──
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 3000);
+        }
+
+        // ── INIT ──
+        renderTable();
+    </script>
+</body>
+</html>
