@@ -61,861 +61,454 @@
             overflow-y: auto;
         }
 
-        .sidebar-logo {
-            padding: 20px 20px 16px;
-        }
-
-        .sidebar-logo h1 {
-            font-size: 17px;
-            font-weight: 800;
-            color: var(--text-dark);
-            letter-spacing: -0.3px;
-        }
+        .sidebar-logo { padding: 20px 20px 16px; }
+        .sidebar-logo h1 { font-size: 17px; font-weight: 800; color: var(--text-dark); letter-spacing: -0.3px; }
 
         .nav-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 9px 20px;
-            color: var(--text-mid);
-            text-decoration: none;
-            font-size: 13.5px;
-            font-weight: 400;
-            cursor: pointer;
-            transition: all 0.12s;
-            border: none;
-            background: none;
-            width: 100%;
-            text-align: left;
+            display: flex; align-items: center; gap: 10px;
+            padding: 9px 20px; color: var(--text-mid); text-decoration: none;
+            font-size: 13.5px; font-weight: 400; cursor: pointer;
+            transition: all 0.12s; border: none; background: none;
+            width: 100%; text-align: left;
         }
-
         .nav-item:hover { color: var(--text-dark); background: var(--bg-page); }
-
         .nav-item.active { color: var(--blue); font-weight: 500; }
-
         .nav-item svg { width: 18px; height: 18px; flex-shrink: 0; }
-
-        .nav-item .chevron {
-            margin-left: auto;
-            width: 14px; height: 14px;
-            transition: transform 0.2s;
-            color: var(--text-light);
-        }
-
+        .nav-item .chevron { margin-left: auto; width: 14px; height: 14px; transition: transform 0.2s; color: var(--text-light); }
         .nav-group.open > .nav-item .chevron { transform: rotate(180deg); }
-
-        .nav-children {
-            overflow: hidden;
-            max-height: 0;
-            transition: max-height 0.25s ease;
-        }
-
+        .nav-children { overflow: hidden; max-height: 0; transition: max-height 0.25s ease; }
         .nav-group.open > .nav-children { max-height: 150px; }
-
-        .nav-children .nav-item {
-            padding-left: 48px;
-            font-size: 13px;
-        }
-
-        .nav-children .nav-item.active {
-            color: var(--blue);
-            font-weight: 500;
-        }
-
-        .nav-divider {
-            height: 1px;
-            background: var(--border);
-            margin: 8px 16px;
-        }
+        .nav-children .nav-item { padding-left: 48px; font-size: 13px; }
+        .nav-children .nav-item.active { color: var(--blue); font-weight: 500; }
+        .nav-divider { height: 1px; background: var(--border); margin: 8px 16px; }
 
         /* ═══════ MAIN ═══════ */
-        .main {
-            flex: 1;
-            margin-left: 240px;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
+        .main { flex: 1; margin-left: 240px; display: flex; flex-direction: column; min-height: 100vh; }
 
         /* ═══════ TOPBAR ═══════ */
         .topbar {
-            height: 60px;
-            background: var(--bg-white);
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 28px;
-            position: sticky;
-            top: 0;
-            z-index: 50;
+            height: 60px; background: var(--bg-white); border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 28px; position: sticky; top: 0; z-index: 50;
         }
-
-        .topbar h2 {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--text-dark);
-        }
-
-        .topbar-right {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
+        .topbar h2 { font-size: 20px; font-weight: 700; color: var(--text-dark); }
+        .topbar-right { display: flex; align-items: center; gap: 20px; }
 
         .btn-new-article {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            color: var(--blue);
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            background: none;
-            border: none;
-            font-family: inherit;
-            padding: 6px 2px;
-            transition: opacity 0.15s;
+            display: inline-flex; align-items: center; gap: 6px;
+            color: var(--blue); font-size: 14px; font-weight: 500;
+            cursor: pointer; background: none; border: none;
+            font-family: inherit; padding: 6px 2px; transition: opacity 0.15s;
         }
-
         .btn-new-article:hover { opacity: 0.7; }
         .btn-new-article svg { width: 16px; height: 16px; }
 
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
+        .user-info { display: flex; align-items: center; gap: 10px; }
         .user-avatar {
-            width: 36px; height: 36px;
-            border-radius: 50%;
-            background: var(--blue-bg);
-            color: var(--blue);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: 36px; height: 36px; border-radius: 50%;
+            background: var(--blue-bg); color: var(--blue);
+            display: flex; align-items: center; justify-content: center;
         }
-
         .user-avatar svg { width: 18px; height: 18px; }
-
-        .user-texts {
-            line-height: 1.3;
-        }
-
-        .user-name {
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--text-dark);
-        }
-
-        .user-email {
-            font-size: 11.5px;
-            color: var(--text-light);
-        }
+        .user-texts { line-height: 1.3; }
+        .user-name { font-size: 13px; font-weight: 500; color: var(--text-dark); }
+        .user-email { font-size: 11.5px; color: var(--text-light); }
 
         /* ═══════ CONTENT ═══════ */
-        .content {
-            padding: 24px 28px;
-            flex: 1;
-        }
+        .content { padding: 24px 28px; flex: 1; }
 
         /* ═══════ FILTER BAR ═══════ */
         .filter-bar {
-            background: var(--bg-white);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 16px 20px;
-            margin-bottom: 0;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 14px;
-            align-items: flex-end;
+            background: var(--bg-white); border: 1px solid var(--border); border-radius: 8px;
+            padding: 16px 20px; margin-bottom: 0;
+            display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-end;
         }
-
-        .f-group {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .f-group label {
-            font-size: 11.5px;
-            font-weight: 500;
-            color: var(--text-muted);
-        }
-
+        .f-group { display: flex; flex-direction: column; gap: 4px; }
+        .f-group label { font-size: 11.5px; font-weight: 500; color: var(--text-muted); }
         .f-group input, .f-group select {
-            height: 36px;
-            padding: 0 10px;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            font-family: inherit;
-            font-size: 13px;
-            color: var(--text-dark);
-            background: var(--bg-white);
-            transition: border-color 0.15s;
+            height: 36px; padding: 0 10px; border: 1px solid var(--border);
+            border-radius: 6px; font-family: inherit; font-size: 13px;
+            color: var(--text-dark); background: var(--bg-white); transition: border-color 0.15s;
         }
-
-        .f-group input:focus, .f-group select:focus {
-            outline: none;
-            border-color: var(--blue);
-        }
-
+        .f-group input:focus, .f-group select:focus { outline: none; border-color: var(--blue); }
         .f-group input[type="text"] { width: 200px; }
         .f-group input[type="number"] { width: 70px; }
         .f-group select { min-width: 140px; }
         .f-group input[type="date"] { width: 145px; }
 
         .btn-search {
-            width: 36px; height: 36px;
-            border-radius: 50%;
-            background: var(--blue);
-            border: none;
-            color: #fff;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.15s;
-            flex-shrink: 0;
+            width: 36px; height: 36px; border-radius: 50%; background: var(--blue);
+            border: none; color: #fff; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: background 0.15s; flex-shrink: 0;
         }
-
         .btn-search:hover { background: var(--blue-hover); }
         .btn-search svg { width: 16px; height: 16px; }
 
         .btn-text {
-            height: 36px;
-            padding: 0 16px;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            background: var(--bg-white);
-            font-family: inherit;
-            font-size: 13px;
-            color: var(--text-mid);
-            cursor: pointer;
-            transition: all 0.15s;
-            white-space: nowrap;
+            height: 36px; padding: 0 16px; border: 1px solid var(--border); border-radius: 6px;
+            background: var(--bg-white); font-family: inherit; font-size: 13px;
+            color: var(--text-mid); cursor: pointer; transition: all 0.15s; white-space: nowrap;
         }
-
         .btn-text:hover { border-color: var(--blue); color: var(--blue); }
 
         .btn-create {
-            height: 36px;
-            padding: 0 16px;
-            border: 1px solid var(--blue);
-            border-radius: 6px;
-            background: var(--bg-white);
-            font-family: inherit;
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--blue);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            transition: all 0.15s;
-            white-space: nowrap;
+            height: 36px; padding: 0 16px; border: 1px solid var(--blue); border-radius: 6px;
+            background: var(--bg-white); font-family: inherit; font-size: 13px; font-weight: 500;
+            color: var(--blue); cursor: pointer; display: flex; align-items: center; gap: 5px;
+            transition: all 0.15s; white-space: nowrap;
         }
-
         .btn-create:hover { background: var(--blue); color: #fff; }
         .btn-create svg { width: 14px; height: 14px; }
 
-        .filter-spacer { flex: 1; }
-
         /* ═══════ DATA TABLE ═══════ */
         .data-table {
-            background: var(--bg-white);
-            border: 1px solid var(--border);
-            border-top: none;
-            border-radius: 0 0 8px 8px;
+            background: var(--bg-white); border: 1px solid var(--border);
+            border-top: none; border-radius: 0 0 8px 8px;
         }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
+        table { width: 100%; border-collapse: collapse; }
         thead th {
-            padding: 11px 16px;
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text-muted);
-            text-align: left;
-            border-bottom: 1px solid var(--border);
-            white-space: nowrap;
-            background: var(--bg-white);
+            padding: 11px 14px; font-size: 12px; font-weight: 600;
+            color: var(--text-muted); text-align: left;
+            border-bottom: 1px solid var(--border); white-space: nowrap; background: var(--bg-white);
         }
-
         tbody tr {
             border-bottom: 1px solid var(--border-light);
-            cursor: pointer;
-            transition: background 0.08s;
+            cursor: pointer; transition: background 0.08s;
         }
-
         tbody tr:last-child { border-bottom: none; }
         tbody tr:hover { background: var(--row-hover); }
+        tbody td { padding: 12px 14px; font-size: 13.5px; vertical-align: middle; }
 
-        tbody td {
-            padding: 12px 16px;
-            font-size: 13.5px;
-            vertical-align: middle;
-        }
-
-        .col-id {
-            color: var(--text-muted);
-            font-weight: 500;
-            width: 55px;
-        }
-
+        .col-id { color: var(--text-muted); font-weight: 500; width: 55px; }
         .col-title {
-            font-weight: 500;
-            color: var(--text-dark);
-            max-width: 380px;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            font-weight: 500; color: var(--text-dark);
+            max-width: 320px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+        }
+        .col-site, .col-type, .col-date { color: var(--text-mid); white-space: nowrap; }
+
+        /* ── Keyword cell with hover expand ── */
+        .kw-cell {
+            position: relative;
             white-space: nowrap;
+            max-width: 180px;
         }
 
-        .col-site, .col-type, .col-date {
+        .kw-main {
+            font-size: 13px;
+            color: var(--text-dark);
+            font-weight: 500;
+            cursor: default;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .kw-count {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 18px;
+            height: 18px;
+            padding: 0 5px;
+            border-radius: 9px;
+            background: var(--bg-page);
+            border: 1px solid var(--border);
+            font-size: 10.5px;
+            font-weight: 600;
+            color: var(--text-muted);
+            line-height: 1;
+        }
+
+        .kw-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0;
+            z-index: 20;
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            padding: 10px 14px;
+            min-width: 220px;
+            max-width: 340px;
+        }
+
+        .kw-cell:hover .kw-dropdown { display: block; }
+
+        .kw-dropdown-label {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--text-light);
+            margin-bottom: 6px;
+        }
+
+        .kw-dropdown-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+
+        .kw-chip {
+            padding: 2px 8px;
+            background: var(--bg-page);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 12px;
             color: var(--text-mid);
             white-space: nowrap;
         }
 
         /* Status badges */
         .status {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            padding: 3px 10px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: 500;
-            white-space: nowrap;
+            display: inline-flex; align-items: center; gap: 5px;
+            padding: 3px 10px; border-radius: 4px;
+            font-size: 12px; font-weight: 500; white-space: nowrap;
         }
-
-        .status-created {
-            background: var(--amber-bg);
-            color: var(--amber);
-            border: 1px solid var(--amber-border);
-        }
-
-        .status-draft {
-            background: var(--blue-light);
-            color: var(--blue);
-            border: 1px solid #bfdbfe;
-        }
-
-        .status-done {
-            background: var(--green-bg);
-            color: var(--green);
-            border: 1px solid var(--green-border);
-        }
-
-        .status .dot {
-            width: 6px; height: 6px;
-            border-radius: 50%;
-            background: currentColor;
-        }
+        .status-created { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
+        .status-draft { background: var(--blue-light); color: var(--blue); border: 1px solid #bfdbfe; }
+        .status-done { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
+        .status .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
 
         /* Type badges */
         .type-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            font-size: 12.5px;
-            font-weight: 500;
-            white-space: nowrap;
+            display: inline-flex; align-items: center; gap: 4px;
+            font-size: 12.5px; font-weight: 500; white-space: nowrap;
         }
-
         .type-new { color: var(--purple); }
         .type-update { color: var(--teal); }
         .type-badge svg { width: 13px; height: 13px; }
 
-        /* Action icons in table row */
-        .row-actions {
-            display: flex;
-            gap: 2px;
-            align-items: center;
-        }
-
+        /* Row actions */
+        .row-actions { display: flex; gap: 2px; align-items: center; }
         .row-action {
-            width: 30px; height: 30px;
-            border: none;
-            background: none;
-            color: var(--text-light);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 4px;
-            transition: all 0.12s;
-            position: relative;
+            width: 30px; height: 30px; border: none; background: none;
+            color: var(--text-light); cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 4px; transition: all 0.12s; position: relative;
         }
-
         .row-action:hover { color: var(--blue); background: var(--blue-light); }
         .row-action svg { width: 16px; height: 16px; }
         .row-action.disabled { opacity: 0.25; pointer-events: none; }
-
         .row-action .tip {
-            display: none;
-            position: absolute;
-            bottom: calc(100% + 6px);
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--text-dark);
-            color: #fff;
-            font-size: 11px;
-            padding: 4px 8px;
-            border-radius: 4px;
-            white-space: nowrap;
-            pointer-events: none;
-            z-index: 10;
+            display: none; position: absolute; bottom: calc(100% + 6px);
+            left: 50%; transform: translateX(-50%);
+            background: var(--text-dark); color: #fff; font-size: 11px;
+            padding: 4px 8px; border-radius: 4px; white-space: nowrap;
+            pointer-events: none; z-index: 10;
         }
-
         .row-action:hover .tip { display: block; }
 
         /* ═══════ PAGINATION ═══════ */
         .table-footer {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 16px;
-            border-top: 1px solid var(--border);
-            font-size: 13px;
-            color: var(--text-muted);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 12px 16px; border-top: 1px solid var(--border);
+            font-size: 13px; color: var(--text-muted);
         }
-
-        .pagination {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
+        .pagination { display: flex; align-items: center; gap: 4px; }
         .pg-info { font-size: 13px; color: var(--text-muted); }
-
         .pg-btn {
-            height: 30px;
-            min-width: 30px;
-            padding: 0 8px;
-            border: 1px solid var(--border);
-            border-radius: 4px;
-            background: var(--bg-white);
-            font-family: inherit;
-            font-size: 13px;
-            color: var(--text-mid);
-            cursor: pointer;
-            transition: all 0.12s;
+            height: 30px; min-width: 30px; padding: 0 8px;
+            border: 1px solid var(--border); border-radius: 4px;
+            background: var(--bg-white); font-family: inherit; font-size: 13px;
+            color: var(--text-mid); cursor: pointer; transition: all 0.12s;
         }
-
         .pg-btn:hover { border-color: var(--blue); color: var(--blue); }
         .pg-btn.active { background: var(--blue); color: #fff; border-color: var(--blue); }
         .pg-btn:disabled { opacity: 0.35; cursor: default; pointer-events: none; }
-
         .pg-nav {
-            padding: 0 12px;
-            height: 30px;
-            border: 1px solid var(--border);
-            border-radius: 4px;
-            background: var(--bg-white);
-            font-family: inherit;
-            font-size: 12.5px;
-            color: var(--text-muted);
-            cursor: pointer;
-            transition: all 0.12s;
+            padding: 0 12px; height: 30px; border: 1px solid var(--border); border-radius: 4px;
+            background: var(--bg-white); font-family: inherit; font-size: 12.5px;
+            color: var(--text-muted); cursor: pointer; transition: all 0.12s;
         }
-
         .pg-nav:hover { border-color: var(--blue); color: var(--blue); }
         .pg-nav:disabled { opacity: 0.35; cursor: default; pointer-events: none; }
 
         /* ═══════ SLIDE PANEL ═══════ */
         .panel-backdrop {
-            position: fixed;
-            inset: 0;
-            background: rgba(15,23,42,0.3);
-            z-index: 200;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.25s;
+            position: fixed; inset: 0; background: rgba(15,23,42,0.3);
+            z-index: 200; opacity: 0; pointer-events: none; transition: opacity 0.25s;
         }
-
         .panel-backdrop.open { opacity: 1; pointer-events: all; }
-
         .panel {
-            position: fixed;
-            top: 0; right: 0; bottom: 0;
-            width: 660px;
-            max-width: 100vw;
-            background: var(--bg-white);
-            z-index: 250;
-            box-shadow: -4px 0 24px rgba(0,0,0,0.08);
+            position: fixed; top: 0; right: 0; bottom: 0;
+            width: 660px; max-width: 100vw; background: var(--bg-white);
+            z-index: 250; box-shadow: -4px 0 24px rgba(0,0,0,0.08);
             transform: translateX(100%);
             transition: transform 0.28s cubic-bezier(0.4,0,0.2,1);
-            display: flex;
-            flex-direction: column;
+            display: flex; flex-direction: column;
         }
-
         .panel.open { transform: translateX(0); }
-
         .panel-head {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px 24px;
-            border-bottom: 1px solid var(--border);
-            gap: 12px;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 16px 24px; border-bottom: 1px solid var(--border); gap: 12px;
         }
-
         .panel-head h3 {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--text-dark);
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+            font-size: 16px; font-weight: 600; color: var(--text-dark);
+            overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
         }
-
         .panel-close {
-            width: 32px; height: 32px;
-            border: none;
-            background: none;
-            color: var(--text-light);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 4px;
-            flex-shrink: 0;
+            width: 32px; height: 32px; border: none; background: none;
+            color: var(--text-light); cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 4px; flex-shrink: 0;
         }
-
         .panel-close:hover { background: var(--bg-page); color: var(--text-dark); }
         .panel-close svg { width: 18px; height: 18px; }
-
-        .panel-body {
-            flex: 1;
-            overflow-y: auto;
-            padding: 24px;
-        }
-
+        .panel-body { flex: 1; overflow-y: auto; padding: 24px; }
         .panel-foot {
-            padding: 14px 24px;
-            border-top: 1px solid var(--border);
-            display: flex;
-            gap: 8px;
-            justify-content: flex-end;
-            flex-wrap: wrap;
+            padding: 14px 24px; border-top: 1px solid var(--border);
+            display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap;
         }
 
-        /* ── detail content ── */
+        /* Detail content */
         .d-section { margin-bottom: 22px; }
-
         .d-section-title {
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 0.8px;
-            text-transform: uppercase;
-            color: var(--text-light);
-            margin-bottom: 10px;
-            padding-bottom: 6px;
-            border-bottom: 1px solid var(--border-light);
+            font-size: 11px; font-weight: 600; letter-spacing: 0.8px;
+            text-transform: uppercase; color: var(--text-light);
+            margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--border-light);
         }
-
-        .d-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 14px;
-        }
-
+        .d-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
         .d-field label {
-            display: block;
-            font-size: 11px;
-            font-weight: 500;
-            color: var(--text-light);
-            margin-bottom: 3px;
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
+            display: block; font-size: 11px; font-weight: 500;
+            color: var(--text-light); margin-bottom: 3px;
+            text-transform: uppercase; letter-spacing: 0.3px;
         }
-
         .d-field .val { font-size: 14px; color: var(--text-dark); }
         .d-field.full { grid-column: 1 / -1; }
-
         .kw-list { display: flex; flex-wrap: wrap; gap: 5px; }
-
         .kw-tag {
-            padding: 2px 9px;
-            background: var(--bg-page);
-            border: 1px solid var(--border);
-            border-radius: 4px;
-            font-size: 12px;
-            color: var(--text-mid);
+            padding: 2px 9px; background: var(--bg-page);
+            border: 1px solid var(--border); border-radius: 4px;
+            font-size: 12px; color: var(--text-mid);
+        }
+        .kw-tag.primary {
+            background: var(--blue-light);
+            border-color: #bfdbfe;
+            color: var(--blue);
+            font-weight: 600;
         }
 
-        /* Status stepper */
-        .stepper {
-            display: flex;
-            align-items: center;
-            gap: 0;
-            margin-bottom: 22px;
-            padding: 14px 0;
-        }
-
+        /* Stepper */
+        .stepper { display: flex; align-items: center; gap: 0; margin-bottom: 22px; padding: 14px 0; }
         .step {
-            display: flex;
-            align-items: center;
-            gap: 7px;
-            font-size: 12.5px;
-            font-weight: 500;
-            color: var(--text-light);
-            padding: 6px 12px;
-            border-radius: 6px;
+            display: flex; align-items: center; gap: 7px;
+            font-size: 12.5px; font-weight: 500; color: var(--text-light);
+            padding: 6px 12px; border-radius: 6px;
         }
-
         .step .num {
-            width: 22px; height: 22px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 11px;
-            font-weight: 700;
-            background: var(--border-light);
-            color: var(--text-light);
+            width: 22px; height: 22px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 11px; font-weight: 700;
+            background: var(--border-light); color: var(--text-light);
         }
-
         .step.done { color: var(--green); }
         .step.done .num { background: var(--green); color: #fff; }
-
         .step.active { color: var(--blue); background: var(--blue-light); }
         .step.active .num { background: var(--blue); color: #fff; }
-
-        .step-line {
-            width: 28px; height: 2px;
-            background: var(--border);
-            flex-shrink: 0;
-        }
-
+        .step-line { width: 28px; height: 2px; background: var(--border); flex-shrink: 0; }
         .step-line.done { background: var(--green); }
 
         /* Draft preview */
         .draft-box {
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 18px;
-            background: var(--bg-page);
-            max-height: 300px;
-            overflow-y: auto;
+            border: 1px solid var(--border); border-radius: 8px;
+            padding: 18px; background: var(--bg-page);
+            max-height: 300px; overflow-y: auto;
         }
-
         .draft-box .ai-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            padding: 2px 8px;
-            background: var(--blue);
-            color: #fff;
-            border-radius: 3px;
-            font-size: 10.5px;
-            font-weight: 600;
-            letter-spacing: 0.3px;
-            margin-bottom: 12px;
+            display: inline-flex; align-items: center; gap: 4px;
+            padding: 2px 8px; background: var(--blue); color: #fff;
+            border-radius: 3px; font-size: 10.5px; font-weight: 600;
+            letter-spacing: 0.3px; margin-bottom: 12px;
         }
-
-        .draft-box h4 {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: var(--text-dark);
-        }
-
-        .draft-box p {
-            font-size: 13.5px;
-            line-height: 1.7;
-            color: var(--text-mid);
-            margin-bottom: 8px;
-        }
-
-        .draft-empty {
-            text-align: center;
-            padding: 32px 16px;
-            color: var(--text-light);
-        }
-
+        .draft-box h4 { font-size: 16px; font-weight: 600; margin-bottom: 10px; color: var(--text-dark); }
+        .draft-box p { font-size: 13.5px; line-height: 1.7; color: var(--text-mid); margin-bottom: 8px; }
+        .draft-empty { text-align: center; padding: 32px 16px; color: var(--text-light); }
         .draft-empty svg { width: 40px; height: 40px; margin-bottom: 8px; opacity: 0.4; }
         .draft-empty p { font-size: 13px; margin-bottom: 12px; }
 
-        /* Buttons (panel) */
+        /* Buttons */
         .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-family: inherit;
-            font-size: 13px;
-            font-weight: 500;
-            border: 1px solid var(--border);
-            cursor: pointer;
-            transition: all 0.12s;
-            background: var(--bg-white);
-            color: var(--text-mid);
-            white-space: nowrap;
+            display: inline-flex; align-items: center; gap: 5px;
+            padding: 8px 16px; border-radius: 6px; font-family: inherit;
+            font-size: 13px; font-weight: 500; border: 1px solid var(--border);
+            cursor: pointer; transition: all 0.12s;
+            background: var(--bg-white); color: var(--text-mid); white-space: nowrap;
         }
-
         .btn:hover { border-color: var(--text-light); }
         .btn svg { width: 14px; height: 14px; }
-
-        .btn-primary {
-            background: var(--blue);
-            color: #fff;
-            border-color: var(--blue);
-        }
-
+        .btn-primary { background: var(--blue); color: #fff; border-color: var(--blue); }
         .btn-primary:hover { background: var(--blue-hover); border-color: var(--blue-hover); }
-
-        .btn-green {
-            background: var(--green);
-            color: #fff;
-            border-color: var(--green);
-        }
-
+        .btn-green { background: var(--green); color: #fff; border-color: var(--green); }
         .btn-green:hover { background: #15803d; border-color: #15803d; }
-
-        .btn-outline-blue {
-            background: var(--bg-white);
-            color: var(--blue);
-            border-color: var(--blue);
-        }
-
+        .btn-outline-blue { background: var(--bg-white); color: var(--blue); border-color: var(--blue); }
         .btn-outline-blue:hover { background: var(--blue); color: #fff; }
-
-        .btn-danger-text {
-            background: none;
-            border: none;
-            color: var(--red);
-            padding: 8px 10px;
-            font-size: 13px;
-            cursor: pointer;
-        }
-
+        .btn-danger-text { background: none; border: none; color: var(--red); padding: 8px 10px; font-size: 13px; cursor: pointer; }
         .btn-danger-text:hover { text-decoration: underline; }
 
         /* ═══════ CREATE MODAL ═══════ */
         .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(15,23,42,0.4);
-            z-index: 300;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.2s;
+            position: fixed; inset: 0; background: rgba(15,23,42,0.4);
+            z-index: 300; display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none; transition: opacity 0.2s;
         }
-
         .modal-overlay.open { opacity: 1; pointer-events: all; }
-
         .modal-card {
-            background: var(--bg-white);
-            border-radius: 10px;
-            width: 540px;
-            max-width: calc(100vw - 32px);
-            max-height: calc(100vh - 64px);
+            background: var(--bg-white); border-radius: 10px; width: 540px;
+            max-width: calc(100vw - 32px); max-height: calc(100vh - 64px);
             box-shadow: 0 20px 60px rgba(0,0,0,0.15);
-            display: flex;
-            flex-direction: column;
-            transform: translateY(16px);
-            transition: transform 0.2s;
+            display: flex; flex-direction: column;
+            transform: translateY(16px); transition: transform 0.2s;
         }
-
         .modal-overlay.open .modal-card { transform: translateY(0); }
-
         .modal-head {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 18px 22px;
-            border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 18px 22px; border-bottom: 1px solid var(--border);
         }
-
         .modal-head h3 { font-size: 16px; font-weight: 600; }
-
         .modal-body { padding: 22px; overflow-y: auto; }
         .modal-foot { padding: 14px 22px; border-top: 1px solid var(--border); display: flex; gap: 8px; justify-content: flex-end; }
-
         .fg { margin-bottom: 16px; }
         .fg label { display: block; font-size: 12px; font-weight: 500; color: var(--text-muted); margin-bottom: 5px; }
-
         .fg input, .fg select, .fg textarea {
-            width: 100%;
-            padding: 9px 12px;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            font-family: inherit;
-            font-size: 13.5px;
-            color: var(--text-dark);
-            background: var(--bg-white);
+            width: 100%; padding: 9px 12px; border: 1px solid var(--border);
+            border-radius: 6px; font-family: inherit; font-size: 13.5px;
+            color: var(--text-dark); background: var(--bg-white);
         }
-
         .fg textarea { min-height: 72px; resize: vertical; line-height: 1.5; }
         .fg input:focus, .fg select:focus, .fg textarea:focus { outline: none; border-color: var(--blue); }
         .fg .hint { font-size: 11.5px; color: var(--text-light); margin-top: 3px; }
-
         .fg-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
-        .type-sel {
-            display: flex;
-            gap: 10px;
-        }
-
+        .type-sel { display: flex; gap: 10px; }
         .type-opt {
-            flex: 1;
-            padding: 14px;
-            border: 2px solid var(--border);
-            border-radius: 8px;
-            cursor: pointer;
-            text-align: center;
-            transition: all 0.12s;
+            flex: 1; padding: 14px; border: 2px solid var(--border);
+            border-radius: 8px; cursor: pointer; text-align: center; transition: all 0.12s;
         }
-
         .type-opt:hover { border-color: var(--blue); }
         .type-opt.sel { border-color: var(--blue); background: var(--blue-light); }
-
         .type-opt .ico {
-            width: 32px; height: 32px;
-            margin: 0 auto 6px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: 32px; height: 32px; margin: 0 auto 6px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
         }
-
         .type-opt .ico svg { width: 16px; height: 16px; }
         .type-opt.t-new .ico { background: var(--purple-bg); color: var(--purple); }
         .type-opt.t-upd .ico { background: var(--teal-bg); color: var(--teal); }
-
         .type-opt .t-label { font-size: 13px; font-weight: 600; color: var(--text-dark); }
         .type-opt .t-desc { font-size: 11.5px; color: var(--text-light); margin-top: 2px; }
 
         /* ═══════ TOAST ═══════ */
         .toast {
-            position: fixed;
-            bottom: 24px;
-            left: 50%;
+            position: fixed; bottom: 24px; left: 50%;
             transform: translateX(-50%) translateY(80px);
-            z-index: 500;
-            padding: 10px 20px;
-            border-radius: 8px;
-            background: var(--text-dark);
-            color: #fff;
-            font-size: 13px;
-            font-weight: 500;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
-            opacity: 0;
-            transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
-            white-space: nowrap;
+            z-index: 500; padding: 10px 20px; border-radius: 8px;
+            background: var(--text-dark); color: #fff; font-size: 13px;
+            font-weight: 500; box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+            opacity: 0; transition: all 0.3s cubic-bezier(0.4,0,0.2,1); white-space: nowrap;
         }
-
         .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
     </style>
 </head>
@@ -924,55 +517,42 @@
 <!-- ═══════ SIDEBAR ═══════ -->
 <aside class="sidebar">
     <div class="sidebar-logo"><h1>EAGLE Admin</h1></div>
-
     <a class="nav-item" href="#">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
         Realtime štatistiky
     </a>
-
     <div class="nav-group">
         <button class="nav-item" onclick="this.parentElement.classList.toggle('open')">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
             Zoznam článkov
             <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
         </button>
-        <div class="nav-children">
-            <a class="nav-item" href="#">Všetky články</a>
-        </div>
+        <div class="nav-children"><a class="nav-item" href="#">Všetky články</a></div>
     </div>
-
     <div class="nav-group">
         <button class="nav-item" onclick="this.parentElement.classList.toggle('open')">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1"/></svg>
             Homepage
             <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
         </button>
-        <div class="nav-children">
-            <a class="nav-item" href="#">Nastavenia</a>
-        </div>
+        <div class="nav-children"><a class="nav-item" href="#">Nastavenia</a></div>
     </div>
-
     <a class="nav-item" href="#">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
         DAM
     </a>
-
     <a class="nav-item" href="#">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
         Video
     </a>
-
     <div class="nav-group">
         <button class="nav-item" onclick="this.parentElement.classList.toggle('open')">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg>
             Moduly
             <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
         </button>
-        <div class="nav-children">
-            <a class="nav-item" href="#">Správa modulov</a>
-        </div>
+        <div class="nav-children"><a class="nav-item" href="#">Správa modulov</a></div>
     </div>
-
     <div class="nav-group open">
         <button class="nav-item active" onclick="this.parentElement.classList.toggle('open')">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
@@ -984,7 +564,6 @@
             <a class="nav-item" href="#">SEO Analytika</a>
         </div>
     </div>
-
     <div class="nav-group">
         <button class="nav-item" onclick="this.parentElement.classList.toggle('open')">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2z"/></svg>
@@ -996,9 +575,7 @@
             <a class="nav-item" href="#">Podcastové štúdio</a>
         </div>
     </div>
-
     <div class="nav-divider"></div>
-
     <div class="nav-group">
         <button class="nav-item" onclick="this.parentElement.classList.toggle('open')">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg>
@@ -1011,8 +588,6 @@
 
 <!-- ═══════ MAIN ═══════ -->
 <div class="main">
-
-    <!-- TOPBAR -->
     <header class="topbar">
         <h2>SEO Plánovač obsahu</h2>
         <div class="topbar-right">
@@ -1032,9 +607,7 @@
         </div>
     </header>
 
-    <!-- CONTENT -->
     <div class="content">
-
         <!-- FILTERS -->
         <div class="filter-bar">
             <div class="f-group">
@@ -1053,9 +626,8 @@
                     <option>Nový Čas</option>
                     <option>Eva</option>
                     <option>Emma</option>
-                    <option>Aktuality.sk</option>
-                    <option>Sportnet.sk</option>
-                    <option>HNonline.sk</option>
+                    <option>Život</option>
+                    <option>Trend</option>
                 </select>
             </div>
             <div class="f-group">
@@ -1101,6 +673,7 @@
                         <th>ID</th>
                         <th>Názov</th>
                         <th>Stránka</th>
+                        <th>Hlavné kľúčové slovo</th>
                         <th>Druh</th>
                         <th>Stav</th>
                         <th>Vytvorené</th>
@@ -1121,7 +694,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 
@@ -1175,9 +747,8 @@
                         <option>Nový Čas</option>
                         <option>Eva</option>
                         <option>Emma</option>
-                        <option>Aktuality.sk</option>
-                        <option>Sportnet.sk</option>
-                        <option>HNonline.sk</option>
+                        <option>Život</option>
+                        <option>Trend</option>
                     </select>
                 </div>
                 <div class="fg">
@@ -1195,8 +766,13 @@
                 <div class="hint">Zadajte URL článku na aktualizáciu.</div>
             </div>
             <div class="fg">
-                <label>Cieľové kľúčové slová</label>
-                <input type="text" id="mKw" placeholder="smartfóny 2026, najlepší mobil, porovnanie">
+                <label>Hlavné kľúčové slovo</label>
+                <input type="text" id="mMainKw" placeholder="napr. smartfóny 2026">
+                <div class="hint">Primárne kľúčové slovo, na ktoré sa článok optimalizuje.</div>
+            </div>
+            <div class="fg">
+                <label>Vedľajšie kľúčové slová</label>
+                <input type="text" id="mSecKw" placeholder="najlepší mobil, porovnanie telefónov, lacné smartfóny">
                 <div class="hint">Oddeľte čiarkou. AI ich použije pri generovaní draftu.</div>
             </div>
             <div class="fg">
@@ -1211,34 +787,56 @@
     </div>
 </div>
 
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script>
-// ═══════ DATA ═══════
 let selType = 'new';
 
 const data = [
-    { id:201, type:'new', title:'Najlepšie smartfóny do 300 € v roku 2026', site:'Plus JEDEN DEŇ', status:'draft', created:'21.05.2026 09:30', prio:'high', kw:['smartfóny 2026','lacné mobily','telefón do 300 eur'], notes:'Zameraj sa na pomer cena/výkon. Cieľovka 20-35r.', url:'',
-        draft:{ title:'Najlepšie smartfóny do 300 € v roku 2026 – veľký prehľad', html:'<p>Hľadáte nový smartfón, ale nechcete minúť celú výplatu? V roku 2026 máte na výber toľko kvalitných modelov do 300 €, že si nemusíte robiť kompromisy.</p><p><strong>Samsung Galaxy A36 5G</strong> prichádza s vynikajúcim 6,6" Super AMOLED displejom a 50 MP kamerou. <strong>Xiaomi Redmi Note 14 Pro</strong> ponúka procesor Snapdragon 7s Gen 3 a 108 MP fotoaparát za okolo 260 €.</p><p>Pokračovanie obsahuje ďalšie modely, porovnávaciu tabuľku a záverečné odporúčania…</p>' }},
-    { id:200, type:'update', title:'Ako schudnúť zdravo – kompletný sprievodca', site:'Eva', status:'draft', created:'20.05.2026 14:15', prio:'high', kw:['ako schudnúť','zdravé chudnutie','diéta 2026'], notes:'Aktualizovať o nové štúdie, pridať sekciu o GLP-1.', url:'https://eva.pluska.sk/zdravie/ako-schudnut-zdravo',
-        draft:{ title:'Ako schudnúť zdravo v roku 2026 – aktualizovaný sprievodca', html:'<p>Článok bol pôvodne publikovaný v 2023. Aktualizovali sme ho o najnovšie poznatky z výskumu výživy 2025–2026.</p><p><strong>Čo je nové:</strong> Odporúčania WHO z marca 2026, kompletne prepracovaná sekcia o GLP-1 liekoch, nový kalorický kalkulátor.</p>' }},
-    { id:198, type:'new', title:'Dovolenka v Chorvátsku 2026 – destinácie a ceny', site:'Plus JEDEN DEŇ', status:'created', created:'19.05.2026 11:00', prio:'high', kw:['chorvátsko 2026','dovolenka chorvátsko','chorvátsko ceny'], notes:'Sezónny obsah – urgentné. Cenové porovnania, tipy na ubytovanie.', url:'', draft:null },
-    { id:196, type:'update', title:'Najlepšie bežecké topánky – recenzie a porovnanie', site:'Sportnet.sk', status:'done', created:'18.05.2026 08:40', prio:'medium', kw:['bežecké topánky','running shoes 2026'], notes:'Aktualizovať o nové modely Nike, Adidas z jari 2026.', url:'https://sportnet.sme.sk/behanie/najlepsie-bezecke-topanky',
-        draft:{ title:'Najlepšie bežecké topánky 2026 – veľké porovnanie [Aktualizované]', html:'<p>Aktualizovaný článok zahŕňa nové modely z jarných kolekcií 2026 vrátane Nike Pegasus 43 a Adidas Ultraboost 26.</p>' }},
-    { id:195, type:'new', title:'AI v každodennom živote – praktický sprievodca', site:'Aktuality.sk', status:'draft', created:'17.05.2026 10:20', prio:'medium', kw:['AI v praxi','umelá inteligencia','chatboty','AI nástroje'], notes:'Prakticky zameraný článok pre bežných ľudí, nie technický.',url:'',
-        draft:{ title:'Umelá inteligencia v bežnom živote – 15 spôsobov, ako vám AI pomôže', html:'<p>Umelá inteligencia už nie je sci-fi. Od plánovania nákupov cez správu financií až po učenie jazykov – AI nástroje vám môžu výrazne uľahčiť bežné činnosti.</p>' }},
-    { id:193, type:'update', title:'Hypotéka v roku 2026 – aktuálne sadzby a podmienky', site:'HNonline.sk', status:'created', created:'16.05.2026 09:10', prio:'high', kw:['hypotéka 2026','úrokové sadzby','hypotekárny úver'], notes:'Refresh kvôli zmene sadzieb ECB v máji 2026.', url:'https://hnonline.sk/financie/hypoteka-sadzby-podmienky', draft:null },
-    { id:191, type:'new', title:'Elektrické autá do 30 000 € – porovnanie 2026', site:'Plus JEDEN DEŇ', status:'draft', created:'15.05.2026 13:45', prio:'medium', kw:['elektromobily 2026','lacné EV','elektrické auto'], notes:'Zahrnúť BYD, Dacia, Citroën.', url:'',
-        draft:{ title:'Elektrické autá do 30 000 € v roku 2026 – kompletný prehľad modelov', html:'<p>Trh s elektromobilmi sa dramaticky zmenil. V roku 2026 si konečne môžete kúpiť kvalitné EV za rozumnú cenu. Pozreli sme sa na všetky dostupné modely do 30 000 €.</p>' }},
-    { id:189, type:'new', title:'Záhradkárčenie pre začiatočníkov – čo sadiť v júni', site:'Emma', status:'created', created:'14.05.2026 07:30', prio:'low', kw:['záhradkárčenie','čo sadiť v júni','záhrada začiatočníci'], notes:'Sezónny obsah, jednoduché rady.', url:'', draft:null },
-    { id:187, type:'update', title:'Najlepšie VPN služby – bezpečnosť online', site:'Aktuality.sk', status:'done', created:'13.05.2026 16:00', prio:'medium', kw:['VPN','najlepšie VPN','online bezpečnosť'], notes:'', url:'https://aktuality.sk/tech/najlepsie-vpn-sluzby',
-        draft:{ title:'Najlepšie VPN služby v roku 2026 – prehľad a porovnanie', html:'<p>Aktualizované poradie VPN služieb na základe nových testov rýchlosti a bezpečnostných auditov 2026.</p>' }},
-    { id:185, type:'new', title:'Letné festivaly na Slovensku 2026 – kompletný prehľad', site:'Plus JEDEN DEŇ', status:'done', created:'12.05.2026 10:15', prio:'medium', kw:['festivaly 2026','letné festivaly','pohoda 2026'], notes:'Sezónny obsah.', url:'',
-        draft:{ title:'Letné festivaly na Slovensku 2026 – dátumy, ceny a lineup', html:'<p>Kompletný prehľad letných hudobných festivalov na Slovensku 2026 vrátane Pohody, Grape, Uprising a ďalších.</p>' }},
-    { id:183, type:'update', title:'Recept na tradičnú vianočnú kapustnicu', site:'Eva', status:'created', created:'11.05.2026 12:00', prio:'low', kw:['kapustnica recept','vianočná kapustnica'], notes:'Evergreen refresh – nové fotky, tips.', url:'https://eva.pluska.sk/recepty/tradicna-kapustnica', draft:null },
-    { id:181, type:'new', title:'Cviky na chrbát pre sedavé zamestnanie', site:'Sportnet.sk', status:'draft', created:'10.05.2026 08:50', prio:'medium', kw:['cviky chrbát','streching','mobilita','bolesť chrbta'], notes:'Obrázky cvikov, príp. video embed.', url:'',
-        draft:{ title:'10 najlepších cvikov pre tých, čo sedia celý deň', html:'<p>Sedíte v práci 8 hodín denne? Tieto cviky na mobilitu a streching vám pomôžu predísť bolestiam chrbta, krku a ramien. Stačí 10 minút denne.</p>' }},
+    { id:201, type:'new', title:'Najlepšie smartfóny do 300 € v roku 2026', site:'Plus JEDEN DEŇ', status:'draft', created:'21.05.2026 09:30', prio:'high',
+      mainKw:'smartfóny do 300 eur', secKw:['najlepšie lacné mobily','telefón 2026','porovnanie smartfónov'],
+      notes:'Zameraj sa na pomer cena/výkon. Cieľovka 20-35r.', url:'',
+      draft:{ title:'Najlepšie smartfóny do 300 € v roku 2026 – veľký prehľad', html:'<p>Hľadáte nový smartfón, ale nechcete minúť celú výplatu? V roku 2026 máte na výber toľko kvalitných modelov do 300 €, že si nemusíte robiť kompromisy.</p><p><strong>Samsung Galaxy A36 5G</strong> prichádza s vynikajúcim 6,6" Super AMOLED displejom a 50 MP kamerou. <strong>Xiaomi Redmi Note 14 Pro</strong> ponúka procesor Snapdragon 7s Gen 3 a 108 MP fotoaparát za okolo 260 €.</p><p>Pokračovanie obsahuje ďalšie modely, porovnávaciu tabuľku a záverečné odporúčania…</p>' }},
+    { id:200, type:'update', title:'Ako schudnúť zdravo – kompletný sprievodca', site:'Eva', status:'draft', created:'20.05.2026 14:15', prio:'high',
+      mainKw:'ako schudnúť', secKw:['zdravé chudnutie','diéta 2026','chudnutie bez jojo efektu'],
+      notes:'Aktualizovať o nové štúdie, pridať sekciu o GLP-1.', url:'https://eva.pluska.sk/zdravie/ako-schudnut-zdravo',
+      draft:{ title:'Ako schudnúť zdravo v roku 2026 – aktualizovaný sprievodca', html:'<p>Článok bol pôvodne publikovaný v 2023. Aktualizovali sme ho o najnovšie poznatky z výskumu výživy 2025–2026.</p><p><strong>Čo je nové:</strong> Odporúčania WHO z marca 2026, kompletne prepracovaná sekcia o GLP-1 liekoch, nový kalorický kalkulátor.</p>' }},
+    { id:198, type:'new', title:'Dovolenka v Chorvátsku 2026 – destinácie a ceny', site:'Plus JEDEN DEŇ', status:'created', created:'19.05.2026 11:00', prio:'high',
+      mainKw:'dovolenka chorvátsko 2026', secKw:['chorvátsko ceny','ubytovanie chorvátsko','najlepšie pláže chorvátsko'],
+      notes:'Sezónny obsah – urgentné. Cenové porovnania, tipy na ubytovanie.', url:'', draft:null },
+    { id:196, type:'update', title:'Najlepšie bežecké topánky – recenzie a porovnanie', site:'Život', status:'done', created:'18.05.2026 08:40', prio:'medium',
+      mainKw:'najlepšie bežecké topánky', secKw:['running shoes 2026','tenisky na beh','bežecká obuv test'],
+      notes:'Aktualizovať o nové modely Nike, Adidas z jari 2026.', url:'https://zivot.pluska.sk/sport/najlepsie-bezecke-topanky',
+      draft:{ title:'Najlepšie bežecké topánky 2026 – veľké porovnanie [Aktualizované]', html:'<p>Aktualizovaný článok zahŕňa nové modely z jarných kolekcií 2026 vrátane Nike Pegasus 43 a Adidas Ultraboost 26.</p>' }},
+    { id:195, type:'new', title:'AI v každodennom živote – praktický sprievodca', site:'Trend', status:'draft', created:'17.05.2026 10:20', prio:'medium',
+      mainKw:'umelá inteligencia v praxi', secKw:['AI nástroje','chatboty pre bežných ľudí','ako používať AI'],
+      notes:'Prakticky zameraný článok pre bežných ľudí, nie technický.', url:'',
+      draft:{ title:'Umelá inteligencia v bežnom živote – 15 spôsobov, ako vám AI pomôže', html:'<p>Umelá inteligencia už nie je sci-fi. Od plánovania nákupov cez správu financií až po učenie jazykov – AI nástroje vám môžu výrazne uľahčiť bežné činnosti.</p>' }},
+    { id:193, type:'update', title:'Hypotéka v roku 2026 – aktuálne sadzby a podmienky', site:'Trend', status:'created', created:'16.05.2026 09:10', prio:'high',
+      mainKw:'hypotéka 2026', secKw:['úrokové sadzby hypotéka','hypotekárny úver podmienky','refinancovanie 2026'],
+      notes:'Refresh kvôli zmene sadzieb ECB v máji 2026.', url:'https://trend.pluska.sk/financie/hypoteka-sadzby-podmienky', draft:null },
+    { id:191, type:'new', title:'Elektrické autá do 30 000 € – porovnanie 2026', site:'Plus JEDEN DEŇ', status:'draft', created:'15.05.2026 13:45', prio:'medium',
+      mainKw:'elektrické autá do 30000', secKw:['lacné elektromobily','EV porovnanie 2026','BYD Dacia elektrické'],
+      notes:'Zahrnúť BYD, Dacia, Citroën.', url:'',
+      draft:{ title:'Elektrické autá do 30 000 € v roku 2026 – kompletný prehľad modelov', html:'<p>Trh s elektromobilmi sa dramaticky zmenil. V roku 2026 si konečne môžete kúpiť kvalitné EV za rozumnú cenu. Pozreli sme sa na všetky dostupné modely do 30 000 €.</p>' }},
+    { id:189, type:'new', title:'Záhradkárčenie pre začiatočníkov – čo sadiť v júni', site:'Emma', status:'created', created:'14.05.2026 07:30', prio:'low',
+      mainKw:'čo sadiť v júni', secKw:['záhradkárčenie začiatočníci','záhrada v lete','pestovanie zeleniny'],
+      notes:'Sezónny obsah, jednoduché rady.', url:'', draft:null },
+    { id:187, type:'update', title:'Najlepšie VPN služby – bezpečnosť online', site:'Nový Čas', status:'done', created:'13.05.2026 16:00', prio:'medium',
+      mainKw:'najlepšie VPN', secKw:['VPN porovnanie','online bezpečnosť','VPN do mobilu'],
+      notes:'', url:'https://cas.pluska.sk/tech/najlepsie-vpn-sluzby',
+      draft:{ title:'Najlepšie VPN služby v roku 2026 – prehľad a porovnanie', html:'<p>Aktualizované poradie VPN služieb na základe nových testov rýchlosti a bezpečnostných auditov 2026.</p>' }},
+    { id:185, type:'new', title:'Letné festivaly na Slovensku 2026 – kompletný prehľad', site:'Plus JEDEN DEŇ', status:'done', created:'12.05.2026 10:15', prio:'medium',
+      mainKw:'festivaly slovensko 2026', secKw:['letné festivaly','pohoda 2026','grape festival vstupenky'],
+      notes:'Sezónny obsah.', url:'',
+      draft:{ title:'Letné festivaly na Slovensku 2026 – dátumy, ceny a lineup', html:'<p>Kompletný prehľad letných hudobných festivalov na Slovensku 2026 vrátane Pohody, Grape, Uprising a ďalších.</p>' }},
+    { id:183, type:'update', title:'Recept na tradičnú vianočnú kapustnicu', site:'Eva', status:'created', created:'11.05.2026 12:00', prio:'low',
+      mainKw:'kapustnica recept', secKw:['vianočná kapustnica','tradičná kapustnica','kapustnica s hubami'],
+      notes:'Evergreen refresh – nové fotky, tips.', url:'https://eva.pluska.sk/recepty/tradicna-kapustnica', draft:null },
+    { id:181, type:'new', title:'Cviky na chrbát pre sedavé zamestnanie', site:'Život', status:'draft', created:'10.05.2026 08:50', prio:'medium',
+      mainKw:'cviky na chrbát', secKw:['streching v kancelárii','mobilita chrbtice','bolesť chrbta cvičenie'],
+      notes:'Obrázky cvikov, príp. video embed.', url:'',
+      draft:{ title:'10 najlepších cvikov pre tých, čo sedia celý deň', html:'<p>Sedíte v práci 8 hodín denne? Tieto cviky na mobilitu a streching vám pomôžu predísť bolestiam chrbta, krku a ramien. Stačí 10 minút denne.</p>' }},
 ];
 
 // ═══════ RENDER ═══════
@@ -1246,7 +844,7 @@ function render() {
     const f = getFiltered();
     const tb = document.getElementById('tbody');
     if (!f.length) {
-        tb.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:40px;color:var(--text-light)">Žiadne položky nezodpovedajú filtru.</td></tr>';
+        tb.innerHTML = '<tr><td colspan="9" style="text-align:center;padding:40px;color:var(--text-light)">Žiadne položky nezodpovedajú filtru.</td></tr>';
         document.getElementById('tInfo').textContent = 'Zobrazených: 0';
         return;
     }
@@ -1255,6 +853,21 @@ function render() {
             <td class="col-id">${r.id}</td>
             <td class="col-title">${r.title}</td>
             <td class="col-site">${r.site}</td>
+            <td>
+                <div class="kw-cell">
+                    <span class="kw-main">
+                        ${r.mainKw}
+                        ${r.secKw.length ? '<span class="kw-count">+'+r.secKw.length+'</span>' : ''}
+                    </span>
+                    ${r.secKw.length ? `
+                    <div class="kw-dropdown">
+                        <div class="kw-dropdown-label">Vedľajšie kľúčové slová</div>
+                        <div class="kw-dropdown-list">
+                            ${r.secKw.map(k => '<span class="kw-chip">'+k+'</span>').join('')}
+                        </div>
+                    </div>` : ''}
+                </div>
+            </td>
             <td class="col-type">
                 ${r.type==='new'
                     ? '<span class="type-badge type-new"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4v16m8-8H4"/></svg> Nový článok</span>'
@@ -1270,35 +883,28 @@ function render() {
                 }
             </td>
             <td>
-                <div class="row-actions">
-                    ${rowActions(r)}
-                </div>
+                <div class="row-actions">${rowActions(r)}</div>
             </td>
         </tr>
     `).join('');
-    document.getElementById('tInfo').textContent = `Zobrazených: ${f.length}`;
+    document.getElementById('tInfo').textContent = 'Zobrazených: ' + f.length;
 }
 
 function statusHTML(s) {
     const m = { created:['Založené','status-created'], draft:['Draft na review','status-draft'], done:['Prebraté','status-done'] };
     const [l,c] = m[s];
-    return `<span class="status ${c}"><span class="dot"></span>${l}</span>`;
+    return '<span class="status '+c+'"><span class="dot"></span>'+l+'</span>';
 }
 
 function rowActions(r) {
     let h = '';
-    // View detail
-    h += `<button class="row-action" onclick="event.stopPropagation();openPanel(${r.id})" title="Detail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg><span class="tip">Detail</span></button>`;
-
+    h += '<button class="row-action" onclick="event.stopPropagation();openPanel('+r.id+')" title="Detail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg><span class="tip">Detail</span></button>';
     if (r.status === 'created') {
-        // Generate draft
-        h += `<button class="row-action" onclick="event.stopPropagation();genDraft(${r.id})" title="Generovať draft"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg><span class="tip">Generovať AI draft</span></button>`;
+        h += '<button class="row-action" onclick="event.stopPropagation();genDraft('+r.id+')" title="Generovať draft"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg><span class="tip">Generovať AI draft</span></button>';
     } else if (r.status === 'draft') {
-        // Mark as done
-        h += `<button class="row-action" onclick="event.stopPropagation();markDone(${r.id})" title="Prevziať"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 13l4 4L19 7"/></svg><span class="tip">${r.type==='new'?'Prevziať do CMS':'Aplikovať zmeny'}</span></button>`;
+        h += '<button class="row-action" onclick="event.stopPropagation();markDone('+r.id+')" title="Prevziať"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 13l4 4L19 7"/></svg><span class="tip">'+(r.type==='new'?'Prevziať do CMS':'Aplikovať zmeny')+'</span></button>';
     } else {
-        // Open in CMS
-        h += `<button class="row-action" onclick="event.stopPropagation();toast('Otváram v CMS…')" title="Otvoriť v CMS"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg><span class="tip">Otvoriť v CMS</span></button>`;
+        h += '<button class="row-action" onclick="event.stopPropagation();toast(\'Otváram v CMS…\')" title="Otvoriť v CMS"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg><span class="tip">Otvoriť v CMS</span></button>';
     }
     return h;
 }
@@ -1310,7 +916,7 @@ function getFiltered() {
     const type = document.getElementById('fType').value;
     const status = document.getElementById('fStatus').value;
     return data.filter(r => {
-        if (s && !r.title.toLowerCase().includes(s) && !r.kw.some(k=>k.toLowerCase().includes(s))) return false;
+        if (s && !r.title.toLowerCase().includes(s) && !r.mainKw.toLowerCase().includes(s) && !r.secKw.some(k=>k.toLowerCase().includes(s))) return false;
         if (site && r.site !== site) return false;
         if (type && r.type !== type) return false;
         if (status && r.status !== status) return false;
@@ -1335,72 +941,60 @@ function resetFilters() {
 function openPanel(id) {
     const r = data.find(x=>x.id===id);
     if (!r) return;
-    document.getElementById('panelTitle').textContent = `#${r.id} – ${r.title}`;
+    document.getElementById('panelTitle').textContent = '#'+r.id+' – '+r.title;
 
-    // Stepper
     const steps = ['created','draft','done'];
     const labels = {created:'Založené', draft:'Draft na review', done:'Prebraté'};
     const ci = steps.indexOf(r.status);
     let stepper = '<div class="stepper">';
     steps.forEach((st,i) => {
         let cls = i < ci ? 'done' : i===ci ? 'active' : '';
-        stepper += `<div class="step ${cls}"><span class="num">${i<ci?'✓':(i+1)}</span>${labels[st]}</div>`;
-        if (i < 2) stepper += `<div class="step-line ${i<ci?'done':''}"></div>`;
+        stepper += '<div class="step '+cls+'"><span class="num">'+(i<ci?'✓':(i+1))+'</span>'+labels[st]+'</div>';
+        if (i < 2) stepper += '<div class="step-line '+(i<ci?'done':'')+'"></div>';
     });
     stepper += '</div>';
 
-    // Info grid
-    let info = `<div class="d-section"><div class="d-section-title">Informácie</div><div class="d-grid">
-        <div class="d-field"><label>Druh</label><div class="val">${r.type==='new'?'<span class="type-badge type-new">✦ Nový SEO článok</span>':'<span class="type-badge type-update">↻ Aktualizácia článku</span>'}</div></div>
-        <div class="d-field"><label>Stránka</label><div class="val">${r.site}</div></div>
-        <div class="d-field"><label>Priorita</label><div class="val">${{high:'🔴 Vysoká',medium:'🟡 Stredná',low:'🟢 Nízka'}[r.prio]}</div></div>
-        <div class="d-field"><label>Vytvorené</label><div class="val">${r.created}</div></div>
-        ${r.url ? `<div class="d-field full"><label>URL existujúceho článku</label><div class="val"><a href="${r.url}" style="color:var(--blue);word-break:break-all">${r.url}</a></div></div>` : ''}
-        <div class="d-field full"><label>Kľúčové slová</label><div class="kw-list">${r.kw.map(k=>`<span class="kw-tag">${k}</span>`).join('')}</div></div>
-        ${r.notes ? `<div class="d-field full"><label>Poznámky / Inštrukcie</label><div class="val">${r.notes}</div></div>` : ''}
-    </div></div>`;
+    const allKw = [r.mainKw, ...r.secKw];
 
-    // Draft
+    let info = '<div class="d-section"><div class="d-section-title">Informácie</div><div class="d-grid">' +
+        '<div class="d-field"><label>Druh</label><div class="val">'+(r.type==='new'?'<span class="type-badge type-new">✦ Nový SEO článok</span>':'<span class="type-badge type-update">↻ Aktualizácia článku</span>')+'</div></div>' +
+        '<div class="d-field"><label>Stránka</label><div class="val">'+r.site+'</div></div>' +
+        '<div class="d-field"><label>Priorita</label><div class="val">'+({high:'🔴 Vysoká',medium:'🟡 Stredná',low:'🟢 Nízka'}[r.prio])+'</div></div>' +
+        '<div class="d-field"><label>Vytvorené</label><div class="val">'+r.created+'</div></div>' +
+        (r.url ? '<div class="d-field full"><label>URL existujúceho článku</label><div class="val"><a href="'+r.url+'" style="color:var(--blue);word-break:break-all">'+r.url+'</a></div></div>' : '') +
+        '<div class="d-field full"><label>Hlavné kľúčové slovo</label><div class="kw-list"><span class="kw-tag primary">'+r.mainKw+'</span></div></div>' +
+        '<div class="d-field full"><label>Vedľajšie kľúčové slová</label><div class="kw-list">'+r.secKw.map(k=>'<span class="kw-tag">'+k+'</span>').join('')+'</div></div>' +
+        (r.notes ? '<div class="d-field full"><label>Poznámky / Inštrukcie</label><div class="val">'+r.notes+'</div></div>' : '') +
+        '</div></div>';
+
     let draftSection = '';
     if (r.draft) {
-        draftSection = `<div class="d-section"><div class="d-section-title">${r.type==='new'?'AI-generovaný návrh článku':'AI-generovaný návrh aktualizácie'}</div>
-            <div class="draft-box">
-                <span class="ai-tag">⚡ Generované AI</span>
-                <h4>${r.draft.title}</h4>
-                ${r.draft.html}
-            </div>
-        </div>`;
+        draftSection = '<div class="d-section"><div class="d-section-title">'+(r.type==='new'?'AI-generovaný návrh článku':'AI-generovaný návrh aktualizácie')+'</div>' +
+            '<div class="draft-box"><span class="ai-tag">⚡ Generované AI</span>' +
+            '<h4>'+r.draft.title+'</h4>'+r.draft.html+'</div></div>';
     } else {
-        draftSection = `<div class="d-section"><div class="d-section-title">${r.type==='new'?'AI-generovaný návrh článku':'AI-generovaný návrh aktualizácie'}</div>
-            <div class="draft-empty">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                <p>Draft ešte nebol vygenerovaný.</p>
-                <button class="btn btn-primary" onclick="genDraft(${r.id})">⚡ Spustiť generovanie</button>
-            </div>
-        </div>`;
+        draftSection = '<div class="d-section"><div class="d-section-title">'+(r.type==='new'?'AI-generovaný návrh článku':'AI-generovaný návrh aktualizácie')+'</div>' +
+            '<div class="draft-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>' +
+            '<p>Draft ešte nebol vygenerovaný.</p>' +
+            '<button class="btn btn-primary" onclick="genDraft('+r.id+')">⚡ Spustiť generovanie</button></div></div>';
     }
 
     document.getElementById('panelBody').innerHTML = stepper + info + draftSection;
 
-    // Footer actions – context-aware
     let foot = '';
     if (r.status === 'created') {
-        foot = `
-            <button class="btn-danger-text" onclick="deleteItem(${r.id})">Zmazať</button>
-            <button class="btn" onclick="closePanel()">Zavrieť</button>
-            <button class="btn btn-primary" onclick="genDraft(${r.id})">⚡ ${r.type==='new'?'Generovať AI draft článku':'Generovať AI návrh zmien'}</button>`;
+        foot = '<button class="btn-danger-text" onclick="deleteItem('+r.id+')">Zmazať</button>' +
+            '<button class="btn" onclick="closePanel()">Zavrieť</button>' +
+            '<button class="btn btn-primary" onclick="genDraft('+r.id+')">⚡ '+(r.type==='new'?'Generovať AI draft článku':'Generovať AI návrh zmien')+'</button>';
     } else if (r.status === 'draft') {
-        foot = `
-            <button class="btn" onclick="closePanel()">Zavrieť</button>
-            <button class="btn btn-outline-blue" onclick="genDraft(${r.id})">↻ Regenerovať draft</button>
-            <button class="btn btn-green" onclick="markDone(${r.id})">✓ ${r.type==='new'?'Prevziať do CMS':'Aplikovať zmeny v CMS'}</button>`;
+        foot = '<button class="btn" onclick="closePanel()">Zavrieť</button>' +
+            '<button class="btn btn-outline-blue" onclick="genDraft('+r.id+')">↻ Regenerovať draft</button>' +
+            '<button class="btn btn-green" onclick="markDone('+r.id+')">✓ '+(r.type==='new'?'Prevziať do CMS':'Aplikovať zmeny v CMS')+'</button>';
     } else {
-        foot = `
-            <button class="btn" onclick="closePanel()">Zavrieť</button>
-            <button class="btn btn-outline-blue" onclick="toast('Otváram článok v CMS editore…')">↗ Otvoriť v CMS</button>`;
+        foot = '<button class="btn" onclick="closePanel()">Zavrieť</button>' +
+            '<button class="btn btn-outline-blue" onclick="toast(\'Otváram článok v CMS editore…\')">↗ Otvoriť v CMS</button>';
     }
     document.getElementById('panelFoot').innerHTML = foot;
-
     document.getElementById('panelBg').classList.add('open');
     document.getElementById('panel').classList.add('open');
 }
@@ -1415,10 +1009,11 @@ function genDraft(id) {
     const r = data.find(x=>x.id===id);
     if (!r) return;
     r.status = 'draft';
+    const allKw = [r.mainKw, ...r.secKw];
     const suffix = r.type === 'new' ? ' – kompletný SEO sprievodca' : ' [Aktualizované 2026]';
     r.draft = {
         title: r.title + suffix,
-        html: `<p>Toto je AI-generovaný návrh ${r.type==='new'?'nového článku':'aktualizácie článku'} optimalizovaný pre kľúčové slová: <strong>${r.kw.join(', ')}</strong>.</p><p>Obsah bol štruktúrovaný s ohľadom na SEO best practices – navrhované H2/H3 nadpisy, meta description, interné linky a optimálnu dĺžku.</p><p><em>Kompletný text draftu by bol k dispozícii na review v redakčnom systéme…</em></p>`
+        html: '<p>Toto je AI-generovaný návrh '+(r.type==='new'?'nového článku':'aktualizácie článku')+' optimalizovaný pre hlavné kľúčové slovo: <strong>'+r.mainKw+'</strong>.</p><p>Vedľajšie kľúčové slová pokryté v texte: '+r.secKw.join(', ')+'.</p><p>Obsah bol štruktúrovaný s ohľadom na SEO best practices – navrhované H2/H3 nadpisy, meta description, interné linky a optimálnu dĺžku.</p><p><em>Kompletný text draftu by bol k dispozícii na review v redakčnom systéme…</em></p>'
     };
     render();
     openPanel(id);
@@ -1456,14 +1051,17 @@ function pickType(el, t) {
 
 function createItem() {
     const title = document.getElementById('mTitle').value.trim();
+    const mainKw = document.getElementById('mMainKw').value.trim();
     if (!title) { toast('Zadajte názov alebo tému.'); return; }
+    if (!mainKw) { toast('Zadajte hlavné kľúčové slovo.'); return; }
     const newId = Math.max(...data.map(r=>r.id)) + 1;
     data.unshift({
         id: newId, type: selType, title, site: document.getElementById('mSite').value,
         status: 'created',
         created: new Date().toLocaleDateString('sk-SK',{day:'2-digit',month:'2-digit',year:'numeric'}) + ' ' + new Date().toLocaleTimeString('sk-SK',{hour:'2-digit',minute:'2-digit'}),
         prio: document.getElementById('mPrio').value,
-        kw: document.getElementById('mKw').value.split(',').map(k=>k.trim()).filter(Boolean),
+        mainKw: mainKw,
+        secKw: document.getElementById('mSecKw').value.split(',').map(k=>k.trim()).filter(Boolean),
         notes: document.getElementById('mNotes').value,
         url: selType==='update' ? document.getElementById('mUrl').value : '',
         draft: null
@@ -1471,9 +1069,9 @@ function createItem() {
     closeModal();
     render();
     toast('Položka #' + newId + ' bola vytvorená.');
-    // reset form
     document.getElementById('mTitle').value='';
-    document.getElementById('mKw').value='';
+    document.getElementById('mMainKw').value='';
+    document.getElementById('mSecKw').value='';
     document.getElementById('mNotes').value='';
     document.getElementById('mUrl').value='';
 }
@@ -1487,9 +1085,7 @@ function toast(msg) {
     t._t = setTimeout(()=>t.classList.remove('show'), 3000);
 }
 
-// ═══════ INIT ═══════
 render();
 </script>
-
 </body>
 </html>
