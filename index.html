@@ -120,43 +120,45 @@
         /* ═══════ FILTER BAR ═══════ */
         .filter-bar {
             background: var(--bg-white); border: 1px solid var(--border); border-radius: 8px;
-            padding: 16px 20px; margin-bottom: 0;
-            display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-end;
+            padding: 14px 16px; margin-bottom: 0;
+            display: flex; flex-wrap: nowrap; gap: 10px; align-items: flex-end;
+            overflow-x: auto;
         }
-        .f-group { display: flex; flex-direction: column; gap: 4px; }
-        .f-group label { font-size: 11.5px; font-weight: 500; color: var(--text-muted); }
+        .f-group { display: flex; flex-direction: column; gap: 3px; flex-shrink: 0; }
+        .f-group label { font-size: 11px; font-weight: 500; color: var(--text-muted); white-space: nowrap; }
         .f-group input, .f-group select {
-            height: 36px; padding: 0 10px; border: 1px solid var(--border);
-            border-radius: 6px; font-family: inherit; font-size: 13px;
+            height: 34px; padding: 0 8px; border: 1px solid var(--border);
+            border-radius: 6px; font-family: inherit; font-size: 12.5px;
             color: var(--text-dark); background: var(--bg-white); transition: border-color 0.15s;
         }
         .f-group input:focus, .f-group select:focus { outline: none; border-color: var(--blue); }
-        .f-group input[type="text"] { width: 200px; }
-        .f-group input[type="number"] { width: 70px; }
-        .f-group select { min-width: 140px; }
-        .f-group input[type="date"] { width: 145px; }
+        .f-group input[type="text"] { width: 170px; }
+        .f-group input[type="number"] { width: 58px; }
+        .f-group select { width: 130px; }
+        .f-group input[type="date"] { width: 130px; }
 
         .btn-search {
-            width: 36px; height: 36px; border-radius: 50%; background: var(--blue);
+            width: 34px; height: 34px; border-radius: 50%; background: var(--blue);
             border: none; color: #fff; cursor: pointer;
             display: flex; align-items: center; justify-content: center;
             transition: background 0.15s; flex-shrink: 0;
         }
         .btn-search:hover { background: var(--blue-hover); }
-        .btn-search svg { width: 16px; height: 16px; }
+        .btn-search svg { width: 15px; height: 15px; }
 
         .btn-text {
-            height: 36px; padding: 0 16px; border: 1px solid var(--border); border-radius: 6px;
-            background: var(--bg-white); font-family: inherit; font-size: 13px;
+            height: 34px; padding: 0 12px; border: 1px solid var(--border); border-radius: 6px;
+            background: var(--bg-white); font-family: inherit; font-size: 12.5px;
             color: var(--text-mid); cursor: pointer; transition: all 0.15s; white-space: nowrap;
+            flex-shrink: 0;
         }
         .btn-text:hover { border-color: var(--blue); color: var(--blue); }
 
         .btn-create {
-            height: 36px; padding: 0 16px; border: 1px solid var(--blue); border-radius: 6px;
-            background: var(--bg-white); font-family: inherit; font-size: 13px; font-weight: 500;
-            color: var(--blue); cursor: pointer; display: flex; align-items: center; gap: 5px;
-            transition: all 0.15s; white-space: nowrap;
+            height: 34px; padding: 0 12px; border: 1px solid var(--blue); border-radius: 6px;
+            background: var(--bg-white); font-family: inherit; font-size: 12.5px; font-weight: 500;
+            color: var(--blue); cursor: pointer; display: flex; align-items: center; gap: 4px;
+            transition: all 0.15s; white-space: nowrap; flex-shrink: 0;
         }
         .btn-create:hover { background: var(--blue); color: #fff; }
         .btn-create svg { width: 14px; height: 14px; }
@@ -280,6 +282,8 @@
         }
         .type-new { color: var(--purple); }
         .type-update { color: var(--teal); }
+        .type-new-tag { color: #c2760c; }
+        .type-update-tag { color: #be185d; }
         .type-badge svg { width: 13px; height: 13px; }
 
         /* Row actions */
@@ -457,7 +461,7 @@
         }
         .modal-overlay.open { opacity: 1; pointer-events: all; }
         .modal-card {
-            background: var(--bg-white); border-radius: 10px; width: 540px;
+            background: var(--bg-white); border-radius: 10px; width: 580px;
             max-width: calc(100vw - 32px); max-height: calc(100vh - 64px);
             box-shadow: 0 20px 60px rgba(0,0,0,0.15);
             display: flex; flex-direction: column;
@@ -483,9 +487,9 @@
         .fg .hint { font-size: 11.5px; color: var(--text-light); margin-top: 3px; }
         .fg-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
-        .type-sel { display: flex; gap: 10px; }
+        .type-sel { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         .type-opt {
-            flex: 1; padding: 14px; border: 2px solid var(--border);
+            flex: 1; padding: 12px 10px; border: 2px solid var(--border);
             border-radius: 8px; cursor: pointer; text-align: center; transition: all 0.12s;
         }
         .type-opt:hover { border-color: var(--blue); }
@@ -497,6 +501,8 @@
         .type-opt .ico svg { width: 16px; height: 16px; }
         .type-opt.t-new .ico { background: var(--purple-bg); color: var(--purple); }
         .type-opt.t-upd .ico { background: var(--teal-bg); color: var(--teal); }
+        .type-opt.t-ntag .ico { background: #fef3e2; color: #c2760c; }
+        .type-opt.t-utag .ico { background: #fce7f3; color: #be185d; }
         .type-opt .t-label { font-size: 13px; font-weight: 600; color: var(--text-dark); }
         .type-opt .t-desc { font-size: 11.5px; color: var(--text-light); margin-top: 2px; }
 
@@ -636,6 +642,8 @@
                     <option value="">---</option>
                     <option value="new">Nový článok</option>
                     <option value="update">Aktualizácia</option>
+                    <option value="new_tag">Nový Tag</option>
+                    <option value="update_tag">Aktualiz. tagu</option>
                 </select>
             </div>
             <div class="f-group">
@@ -733,6 +741,16 @@
                         <div class="t-label">Aktualizácia článku</div>
                         <div class="t-desc">SEO refresh staršieho obsahu</div>
                     </div>
+                    <div class="type-opt t-ntag" onclick="pickType(this,'new_tag')">
+                        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 7h.01M7 3h5a1.99 1.99 0 011.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A2 2 0 013 12V7a4 4 0 014-4z"/></svg></div>
+                        <div class="t-label">Nový Tag</div>
+                        <div class="t-desc">Nová SEO tag stránka</div>
+                    </div>
+                    <div class="type-opt t-utag" onclick="pickType(this,'update_tag')">
+                        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 7h.01M7 3h5a1.99 1.99 0 011.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A2 2 0 013 12V7a4 4 0 014-4z"/><path d="M15 5l4 4"/></svg></div>
+                        <div class="t-label">Aktualizácia tagu</div>
+                        <div class="t-desc">Refresh stránky tagu</div>
+                    </div>
                 </div>
             </div>
             <div class="fg">
@@ -819,7 +837,11 @@ const data = [
       mainKw:'elektrické autá do 30000', secKw:['lacné elektromobily','EV porovnanie 2026','BYD Dacia elektrické'],
       notes:'Zahrnúť BYD, Dacia, Citroën.', url:'',
       draft:{ title:'Elektrické autá do 30 000 € v roku 2026 – kompletný prehľad modelov', html:'<p>Trh s elektromobilmi sa dramaticky zmenil. V roku 2026 si konečne môžete kúpiť kvalitné EV za rozumnú cenu. Pozreli sme sa na všetky dostupné modely do 30 000 €.</p>' }},
-    { id:189, type:'new', title:'Záhradkárčenie pre začiatočníkov – čo sadiť v júni', site:'Emma', status:'created', created:'14.05.2026 07:30', prio:'low',
+    { id:189, type:'new_tag', title:'Tag: Umelá inteligencia', site:'Trend', status:'draft', created:'14.05.2026 07:30', prio:'high',
+      mainKw:'umelá inteligencia', secKw:['AI technológie','strojové učenie','automatizácia'],
+      notes:'Nová tag stránka pre všetok AI obsah na Trende.', url:'',
+      draft:{ title:'Umelá inteligencia – všetko o AI na jednom mieste', html:'<p>Tag stránka agregujúca všetok obsah o umelej inteligencii. Obsahuje úvodný SEO text, definíciu pojmu, prehľad súvisiacich tém a automaticky generovaný listing článkov.</p>' }},
+    { id:188, type:'new', title:'Záhradkárčenie pre začiatočníkov – čo sadiť v júni', site:'Emma', status:'created', created:'13.05.2026 15:00', prio:'low',
       mainKw:'čo sadiť v júni', secKw:['záhradkárčenie začiatočníci','záhrada v lete','pestovanie zeleniny'],
       notes:'Sezónny obsah, jednoduché rady.', url:'', draft:null },
     { id:187, type:'update', title:'Najlepšie VPN služby – bezpečnosť online', site:'Nový Čas', status:'done', created:'13.05.2026 16:00', prio:'medium',
@@ -830,7 +852,10 @@ const data = [
       mainKw:'festivaly slovensko 2026', secKw:['letné festivaly','pohoda 2026','grape festival vstupenky'],
       notes:'Sezónny obsah.', url:'',
       draft:{ title:'Letné festivaly na Slovensku 2026 – dátumy, ceny a lineup', html:'<p>Kompletný prehľad letných hudobných festivalov na Slovensku 2026 vrátane Pohody, Grape, Uprising a ďalších.</p>' }},
-    { id:183, type:'update', title:'Recept na tradičnú vianočnú kapustnicu', site:'Eva', status:'created', created:'11.05.2026 12:00', prio:'low',
+    { id:183, type:'update_tag', title:'Tag: Hypotéky a úvery', site:'Trend', status:'created', created:'11.05.2026 12:00', prio:'medium',
+      mainKw:'hypotéky', secKw:['úvery','refinancovanie','úrokové sadzby'],
+      notes:'Aktualizovať úvodný text tagu o nové sadzby ECB.', url:'https://trend.pluska.sk/tag/hypoteky', draft:null },
+    { id:182, type:'update', title:'Recept na tradičnú vianočnú kapustnicu', site:'Eva', status:'created', created:'10.05.2026 09:20', prio:'low',
       mainKw:'kapustnica recept', secKw:['vianočná kapustnica','tradičná kapustnica','kapustnica s hubami'],
       notes:'Evergreen refresh – nové fotky, tips.', url:'https://eva.pluska.sk/recepty/tradicna-kapustnica', draft:null },
     { id:181, type:'new', title:'Cviky na chrbát pre sedavé zamestnanie', site:'Život', status:'draft', created:'10.05.2026 08:50', prio:'medium',
@@ -868,12 +893,7 @@ function render() {
                     </div>` : ''}
                 </div>
             </td>
-            <td class="col-type">
-                ${r.type==='new'
-                    ? '<span class="type-badge type-new"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4v16m8-8H4"/></svg> Nový článok</span>'
-                    : '<span class="type-badge type-update"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg> Aktualizácia</span>'
-                }
-            </td>
+            <td class="col-type">${typeBadge(r.type)}</td>
             <td>${statusHTML(r.status)}</td>
             <td class="col-date">${r.created}</td>
             <td>
@@ -896,13 +916,27 @@ function statusHTML(s) {
     return '<span class="status '+c+'"><span class="dot"></span>'+l+'</span>';
 }
 
+const TYPE_CFG = {
+    new:        { cls:'type-new',        icon:'<path d="M12 4v16m8-8H4"/>', label:'Nový článok',       labelFull:'✦ Nový SEO článok',        isNew:true  },
+    update:     { cls:'type-update',     icon:'<path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>', label:'Aktualizácia', labelFull:'↻ Aktualizácia článku', isNew:false },
+    new_tag:    { cls:'type-new-tag',    icon:'<path d="M7 7h.01M7 3h5a1.99 1.99 0 011.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A2 2 0 013 12V7a4 4 0 014-4z"/>', label:'Nový Tag', labelFull:'🏷 Nový Tag', isNew:true },
+    update_tag: { cls:'type-update-tag', icon:'<path d="M7 7h.01M7 3h5a1.99 1.99 0 011.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A2 2 0 013 12V7a4 4 0 014-4z"/><path d="M15 5l4 4"/>', label:'Aktualiz. tagu', labelFull:'🏷↻ Aktualizácia tagu', isNew:false },
+};
+
+function typeBadge(t) {
+    const c = TYPE_CFG[t];
+    return '<span class="type-badge '+c.cls+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">'+c.icon+'</svg> '+c.label+'</span>';
+}
+
+function isNewType(t) { return TYPE_CFG[t].isNew; }
+
 function rowActions(r) {
     let h = '';
     h += '<button class="row-action" onclick="event.stopPropagation();openPanel('+r.id+')" title="Detail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg><span class="tip">Detail</span></button>';
     if (r.status === 'created') {
         h += '<button class="row-action" onclick="event.stopPropagation();genDraft('+r.id+')" title="Generovať draft"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg><span class="tip">Generovať AI draft</span></button>';
     } else if (r.status === 'draft') {
-        h += '<button class="row-action" onclick="event.stopPropagation();markDone('+r.id+')" title="Prevziať"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 13l4 4L19 7"/></svg><span class="tip">'+(r.type==='new'?'Prevziať do CMS':'Aplikovať zmeny')+'</span></button>';
+        h += '<button class="row-action" onclick="event.stopPropagation();markDone('+r.id+')" title="Prevziať"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 13l4 4L19 7"/></svg><span class="tip">'+(isNewType(r.type)?'Prevziať do CMS':'Aplikovať zmeny')+'</span></button>';
     } else {
         h += '<button class="row-action" onclick="event.stopPropagation();toast(\'Otváram v CMS…\')" title="Otvoriť v CMS"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg><span class="tip">Otvoriť v CMS</span></button>';
     }
@@ -957,23 +991,26 @@ function openPanel(id) {
     const allKw = [r.mainKw, ...r.secKw];
 
     let info = '<div class="d-section"><div class="d-section-title">Informácie</div><div class="d-grid">' +
-        '<div class="d-field"><label>Druh</label><div class="val">'+(r.type==='new'?'<span class="type-badge type-new">✦ Nový SEO článok</span>':'<span class="type-badge type-update">↻ Aktualizácia článku</span>')+'</div></div>' +
+        '<div class="d-field"><label>Druh</label><div class="val"><span class="type-badge '+TYPE_CFG[r.type].cls+'">'+TYPE_CFG[r.type].labelFull+'</span></div></div>' +
         '<div class="d-field"><label>Stránka</label><div class="val">'+r.site+'</div></div>' +
         '<div class="d-field"><label>Priorita</label><div class="val">'+({high:'🔴 Vysoká',medium:'🟡 Stredná',low:'🟢 Nízka'}[r.prio])+'</div></div>' +
         '<div class="d-field"><label>Vytvorené</label><div class="val">'+r.created+'</div></div>' +
-        (r.url ? '<div class="d-field full"><label>URL existujúceho článku</label><div class="val"><a href="'+r.url+'" style="color:var(--blue);word-break:break-all">'+r.url+'</a></div></div>' : '') +
+        (r.url ? '<div class="d-field full"><label>URL existujúceho obsahu</label><div class="val"><a href="'+r.url+'" style="color:var(--blue);word-break:break-all">'+r.url+'</a></div></div>' : '') +
         '<div class="d-field full"><label>Hlavné kľúčové slovo</label><div class="kw-list"><span class="kw-tag primary">'+r.mainKw+'</span></div></div>' +
         '<div class="d-field full"><label>Vedľajšie kľúčové slová</label><div class="kw-list">'+r.secKw.map(k=>'<span class="kw-tag">'+k+'</span>').join('')+'</div></div>' +
         (r.notes ? '<div class="d-field full"><label>Poznámky / Inštrukcie</label><div class="val">'+r.notes+'</div></div>' : '') +
         '</div></div>';
 
+    const _isNew = isNewType(r.type);
+    const _draftLabel = _isNew ? 'AI-generovaný návrh obsahu' : 'AI-generovaný návrh aktualizácie';
+
     let draftSection = '';
     if (r.draft) {
-        draftSection = '<div class="d-section"><div class="d-section-title">'+(r.type==='new'?'AI-generovaný návrh článku':'AI-generovaný návrh aktualizácie')+'</div>' +
+        draftSection = '<div class="d-section"><div class="d-section-title">'+_draftLabel+'</div>' +
             '<div class="draft-box"><span class="ai-tag">⚡ Generované AI</span>' +
             '<h4>'+r.draft.title+'</h4>'+r.draft.html+'</div></div>';
     } else {
-        draftSection = '<div class="d-section"><div class="d-section-title">'+(r.type==='new'?'AI-generovaný návrh článku':'AI-generovaný návrh aktualizácie')+'</div>' +
+        draftSection = '<div class="d-section"><div class="d-section-title">'+_draftLabel+'</div>' +
             '<div class="draft-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>' +
             '<p>Draft ešte nebol vygenerovaný.</p>' +
             '<button class="btn btn-primary" onclick="genDraft('+r.id+')">⚡ Spustiť generovanie</button></div></div>';
@@ -985,11 +1022,11 @@ function openPanel(id) {
     if (r.status === 'created') {
         foot = '<button class="btn-danger-text" onclick="deleteItem('+r.id+')">Zmazať</button>' +
             '<button class="btn" onclick="closePanel()">Zavrieť</button>' +
-            '<button class="btn btn-primary" onclick="genDraft('+r.id+')">⚡ '+(r.type==='new'?'Generovať AI draft článku':'Generovať AI návrh zmien')+'</button>';
+            '<button class="btn btn-primary" onclick="genDraft('+r.id+')">⚡ '+(_isNew?'Generovať AI draft':'Generovať AI návrh zmien')+'</button>';
     } else if (r.status === 'draft') {
         foot = '<button class="btn" onclick="closePanel()">Zavrieť</button>' +
             '<button class="btn btn-outline-blue" onclick="genDraft('+r.id+')">↻ Regenerovať draft</button>' +
-            '<button class="btn btn-green" onclick="markDone('+r.id+')">✓ '+(r.type==='new'?'Prevziať do CMS':'Aplikovať zmeny v CMS')+'</button>';
+            '<button class="btn btn-green" onclick="markDone('+r.id+')">✓ '+(_isNew?'Prevziať do CMS':'Aplikovať zmeny v CMS')+'</button>';
     } else {
         foot = '<button class="btn" onclick="closePanel()">Zavrieť</button>' +
             '<button class="btn btn-outline-blue" onclick="toast(\'Otváram článok v CMS editore…\')">↗ Otvoriť v CMS</button>';
@@ -1009,15 +1046,15 @@ function genDraft(id) {
     const r = data.find(x=>x.id===id);
     if (!r) return;
     r.status = 'draft';
-    const allKw = [r.mainKw, ...r.secKw];
-    const suffix = r.type === 'new' ? ' – kompletný SEO sprievodca' : ' [Aktualizované 2026]';
+    const _isNew = isNewType(r.type);
+    const suffix = _isNew ? ' – kompletný SEO sprievodca' : ' [Aktualizované 2026]';
     r.draft = {
         title: r.title + suffix,
-        html: '<p>Toto je AI-generovaný návrh '+(r.type==='new'?'nového článku':'aktualizácie článku')+' optimalizovaný pre hlavné kľúčové slovo: <strong>'+r.mainKw+'</strong>.</p><p>Vedľajšie kľúčové slová pokryté v texte: '+r.secKw.join(', ')+'.</p><p>Obsah bol štruktúrovaný s ohľadom na SEO best practices – navrhované H2/H3 nadpisy, meta description, interné linky a optimálnu dĺžku.</p><p><em>Kompletný text draftu by bol k dispozícii na review v redakčnom systéme…</em></p>'
+        html: '<p>Toto je AI-generovaný návrh '+(_isNew?'nového obsahu':'aktualizácie')+' optimalizovaný pre hlavné kľúčové slovo: <strong>'+r.mainKw+'</strong>.</p><p>Vedľajšie kľúčové slová pokryté v texte: '+r.secKw.join(', ')+'.</p><p>Obsah bol štruktúrovaný s ohľadom na SEO best practices – navrhované H2/H3 nadpisy, meta description, interné linky a optimálnu dĺžku.</p><p><em>Kompletný text draftu by bol k dispozícii na review v redakčnom systéme…</em></p>'
     };
     render();
     openPanel(id);
-    toast(r.type==='new' ? 'AI draft článku bol vygenerovaný.' : 'AI návrh aktualizácie bol vygenerovaný.');
+    toast(_isNew ? 'AI draft bol vygenerovaný.' : 'AI návrh aktualizácie bol vygenerovaný.');
 }
 
 function markDone(id) {
@@ -1026,7 +1063,7 @@ function markDone(id) {
     r.status = 'done';
     render();
     openPanel(id);
-    toast(r.type==='new' ? 'Článok bol prevzatý do CMS.' : 'Zmeny boli aplikované v CMS.');
+    toast(isNewType(r.type) ? 'Obsah bol prevzatý do CMS.' : 'Zmeny boli aplikované v CMS.');
 }
 
 function deleteItem(id) {
@@ -1046,7 +1083,7 @@ function pickType(el, t) {
     selType = t;
     document.querySelectorAll('.type-opt').forEach(o=>o.classList.remove('sel'));
     el.classList.add('sel');
-    document.getElementById('mUrlWrap').style.display = t==='update' ? 'block' : 'none';
+    document.getElementById('mUrlWrap').style.display = (t==='update'||t==='update_tag') ? 'block' : 'none';
 }
 
 function createItem() {
@@ -1063,7 +1100,7 @@ function createItem() {
         mainKw: mainKw,
         secKw: document.getElementById('mSecKw').value.split(',').map(k=>k.trim()).filter(Boolean),
         notes: document.getElementById('mNotes').value,
-        url: selType==='update' ? document.getElementById('mUrl').value : '',
+        url: (selType==='update'||selType==='update_tag') ? document.getElementById('mUrl').value : '',
         draft: null
     });
     closeModal();
